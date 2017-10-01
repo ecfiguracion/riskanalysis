@@ -8,6 +8,6 @@ class BarangayController extends Controller
 {
     public function get()
     {
-        return response()->json(Barangay::all());       
+        return Barangay::all();       
     }
 }

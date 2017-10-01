@@ -10,6 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->post('authenticate', 'UserController@authenticate');
 
 $router->group(['prefix' => 'api','middleware' => 'auth'], function () use ($router) {
     //barangay routes

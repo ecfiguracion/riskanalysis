@@ -93,6 +93,13 @@ $app->register(App\Providers\AuthServiceProvider::class);
 |
 */
 
+//Enable CORS route using Barryvdh\Cors
+$app->configure('cors');
+$app->register(Barryvdh\Cors\ServiceProvider::class);
+$app->middleware([
+    \Barryvdh\Cors\HandleCors::class,
+]);
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
