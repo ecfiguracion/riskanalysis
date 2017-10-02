@@ -7,6 +7,7 @@ import Main from '@/components/Main'
 import Login from '@/components/Login'
 import BackEnd from '@/components/backend/BackEnd'
 import Assessments from '@/components/backend/Assessments'
+import Barangays from '@/components/backend/config/Barangays'
 import Barangay from '@/components/backend/config/Barangay'
 import Agriculture from '@/components/backend/config/Agriculture'
 import Lifelines from '@/components/backend/config/Lifelines'
@@ -35,7 +36,8 @@ export const router = new Router({
       component: BackEnd,
       children: [
         { path: 'assessments', component: Assessments },
-        { path: 'barangay', component: Barangay },
+        { path: 'barangays', component: Barangays },
+        { path: 'barangay/:id', component: Barangay },
         { path: 'agriculture', component: Agriculture },
         { path: 'lifelines', component: Lifelines },
         { path: 'structures', component: Structures }
