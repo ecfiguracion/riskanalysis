@@ -15,7 +15,8 @@ $router->post('authenticate', 'UserController@authenticate');
 $router->group(['prefix' => 'api','middleware' => 'auth'], function () use ($router) {
 
     //barangay routes
-    $router->get('barangay/get[/{id}]', 'BarangayController@get');
+    $router->get('barangay/get/{id}', 'BarangayController@get');
+    $router->post('barangay/search', 'BarangayController@search');    
     $router->post('barangay/save', 'BarangayController@save');
     $router->post('barangay/delete', 'BarangayController@delete');
 

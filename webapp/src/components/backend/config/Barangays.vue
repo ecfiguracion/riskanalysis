@@ -3,8 +3,18 @@
       <div class="column"> 
         <p class="control">
           <button class="button is-primary" @click="onNew">New</button>
+          <button class="button is-primary" @click="vm.refresh()">Refresh</button>          
           <button class="button is-danger" @click="onDelete">Delete</button>
+          <button class="button is-warning" @click="vm.goFirstPage()">|<</button>
+          <button class="button is-warning" @click="vm.goPreviousPage()"><</button>          
+          <button class="button is-warning" @click="vm.goNextPage()">></button>
+          <button class="button is-warning" @click="vm.goLastPage()">>|</button>          
         </p>          
+        <p class="control">
+            <p>Search</p>
+            <input id="searchText" v-validate.initial="'required'" 
+                :class="{'is-danger':errors.has('searchText')}"  type="text" v-model="vm.Filters.Search.Text">          
+        </p>
         <table class="table is-fullwidth">
             <thead>
               <th></th>
@@ -14,7 +24,7 @@
             </thead>
             <tbody>
               <tr v-for="item in vm.pagedmodel.data" v-bind:key="item.id">
-                <th> <input type="checkbox" :value="`${item.id}`" v-model="vm.SelectedIds"> </th>
+                <th> <input type="checkbox" :value="`${item.id}`" v-model="vm.Filters.SelectedIds"> </th>
                 <th> <router-link :to="`/backend/barangay/${item.id}`" exact>{{ item.name }}</router-link> </th>
                 <th> {{ item.latitude }} </th>
                 <th> {{ item.longitude }} </th>
@@ -26,12 +36,12 @@
 </template>
 
 <script>
-  import vmbase from '../../../core/vmbase'
+  import vmpagedbase from '../../../core/vmpagedbase'
 
   export default {
     data () {
       return {
-        vm: new vmbase(),
+        vm: new vmpagedbase(),
         errorMessage: ''
       }
     },
@@ -43,30 +53,22 @@
         this.$modal.confirm({
             content: 'Are you sure you want to remove selected records?',
             onOk: () => {
-              this.vm.post('/api/barangay/delete')
+              this.vm.delete()
                 .then(data => {
                   this.$notify.success({content: 'Record successfully deleted..'});
-                  this.refresh()                  
+                  this.vm.refresh()             
                 })
                 .catch(error => {
                   this.errorMessage = error
                 })              
             } 
         });
-      },
-      refresh () {
-        this.vm.get('/api/barangay/get')
-          .then(data => {
-          })
-          .catch(error => {
-            this.errorMessage = error
-          })      
       }
     },
     mounted() {
-      this.vm.IsUsePagedModel = true
       this.vm.IsUseToken = true
-      this.refresh()
+      this.vm.UrlEndPoint = '/api/barangay'
+      this.vm.refresh()
     }
   }
 </script>

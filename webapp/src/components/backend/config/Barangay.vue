@@ -3,17 +3,11 @@
       <div class="column"> 
           <h1>BARANGAY DETAIL</h1>
 
-        <form method="POST" @submit.prevent="onSubmit">
+        <form method="POST" @submit.prevent="onSave">
           <label class="label">Name</label>
           <p class="control">
             <input id="name" name="name" class="input is-small" v-validate.initial="'required|max:150'" 
                 :class="{'is-danger':errors.has('name')}"  type="text" v-model="vm.model.name">
-          </p>
-
-          <label class="label">Longitude</label>
-          <p class="control">
-            <input id="longitude" name="longitude" class="input is-small"  v-validate.initial="'numeric'" 
-                :class="{'is-danger':errors.has('longitude')}"  type="text" v-model="vm.model.longitude">
           </p>
 
           <label class="label">Latitude</label>
@@ -22,6 +16,12 @@
                 :class="{'is-danger':errors.has('latitude')}"  type="text" v-model="vm.model.latitude">
           </p>
 
+          <label class="label">Longitude</label>
+          <p class="control">
+            <input id="longitude" name="longitude" class="input is-small"  v-validate.initial="'numeric'" 
+                :class="{'is-danger':errors.has('longitude')}"  type="text" v-model="vm.model.longitude">
+          </p>
+          
           <p class="control">
             <button class="button is-primary">Save</button>
             <button type="button" class="button is-danger" @click="cancel">Cancel</button>
@@ -42,10 +42,10 @@
       }
     },
     methods: {
-      onSubmit () {
+      onSave () {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.vm.post('/api/barangay/save')
+            this.vm.save()
               .then(data => {
                 this.$notify.success({content: 'Record successfully saved..'});
                 this.$router.push('/backend/barangays')
@@ -62,10 +62,12 @@
     },
     mounted() { 
       this.vm.IsUseToken = true
+      this.vm.UrlEndPoint = '/api/barangay'
 
       var id = this.$route.params.id
-      if (id > 0) {
-        this.vm.get('/api/barangay/get/'+id)
+      if (id > 0) {        
+        this.vm.model.id = id
+        this.vm.refresh()
           .then(data => {
             this.$validator.validateAll()
           })

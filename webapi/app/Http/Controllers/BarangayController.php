@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 
 class BarangayController extends Controller
 {
-    public function get($id = null)
+    public function get($id)
     {
-        if ($id)
-            return Barangay::findOrFail($id);       
-        else 
-            return Barangay::paginate(20);       
+        return Barangay::findOrFail($id);       
     }
+
+    public function search(Request $request)
+    {
+        $filter = $request->Text;
+        if ($filter)
+            return Barangay::where('name','like','%' . $filter . '%')->paginate(5);
+        else
+            return Barangay::paginate(5);
+    }    
 
     public function save(Request $request) {
 
