@@ -12,7 +12,7 @@
         </p>          
         <p class="control">
             <p>Search</p>
-            <input id="searchText" v-validate.initial="'required'" 
+            <input id="searchText" v-validate.initial="'required'" @keyup.enter="vm.refresh()"
                 :class="{'is-danger':errors.has('searchText')}"  type="text" v-model="vm.Filters.Search.Text">          
         </p>
         <table class="table is-fullwidth">
@@ -25,7 +25,7 @@
             <tbody>
               <tr v-for="item in vm.pagedmodel.data" v-bind:key="item.id">
                 <th> <input type="checkbox" :value="`${item.id}`" v-model="vm.Filters.SelectedIds"> </th>
-                <th> <router-link :to="`/backend/barangay/${item.id}`" exact>{{ item.name }}</router-link> </th>
+                <th> <router-link :to="`${UI}${item.id}`" exact>{{ item.name }}</router-link> </th>
                 <th> {{ item.latitude }} </th>
                 <th> {{ item.longitude }} </th>
               </tr>                
@@ -37,17 +37,19 @@
 
 <script>
   import vmpagedbase from '../../../core/vmpagedbase'
+  import UI from '../../../core/constants/pages'
 
   export default {
     data () {
       return {
         vm: new vmpagedbase(),
+        UI: UI.CONFIG.Barangay,
         errorMessage: ''
       }
     },
     methods: {
       onNew () {
-        this.$router.push('/backend/barangay/0')
+        this.$router.push(this.UI + '0')
       },
       onDelete () {
         this.$modal.confirm({
