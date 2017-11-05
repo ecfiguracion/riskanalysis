@@ -20,7 +20,7 @@ function islogged(){
 
 function getAPIKey() {
     if (this.islogged)
-        return localStorage.getItem("API_KEY")
+        return localStorage.getItem('API_KEY')
     else
         return ''
 }

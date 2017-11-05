@@ -65,6 +65,13 @@ class VMPagedBase {
             })
         })
     }
+    
+    checkedFilterIds (selected) {
+        this.Filters.Search.SelectedIds = []
+        for (var item in selected) {
+          this.Filters.Search.SelectedIds.push(selected[item].id)
+        }
+    }
 
     goFirstPage () {
         this.goToPage(NAVIGATION_TYPE.FIRST)        

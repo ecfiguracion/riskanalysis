@@ -1,3 +1,4 @@
+import { store } from '../config/store'
 import auth from '../authenticate'
 
 const KEYS = {

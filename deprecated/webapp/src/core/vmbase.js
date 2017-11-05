@@ -19,19 +19,23 @@ class VMBase {
             return API.KEYS.URL + this.UrlEndPoint + endpoint
     }
     
+    find (){
+        return this.submit(this.getUrl(''),COMMON.ACTION_TYPES.SUBMIT)
+    }
+    
     refresh() {
         return this.submit(this.getUrl('/get/' + this.model.id),COMMON.ACTION_TYPES.FINDBYID)
     }
 
     save() {
-        return this.submit(this.getUrl('/save'),COMMON.ACTION_TYPES.SAVE)
+        return this.submit(this.getUrl('/save'),COMMON.ACTION_TYPES.SUBMIT)
     }    
 
     submit (url, action) {
         return new Promise((resolve, reject) => {
 
             var requestType = 'get'            
-            if (action == COMMON.ACTION_TYPES.SAVE) {
+            if (action == COMMON.ACTION_TYPES.SUBMIT) {
                 requestType = 'post'                    
             }
 

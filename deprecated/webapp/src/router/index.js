@@ -56,7 +56,7 @@ router.beforeEach((to,from,next) =>
     case '/login': {
       if (store.state.isLoggedIn)
       {
-        next('/backend/assessments')
+        next('/backend')
       } else {
         next()
       }
