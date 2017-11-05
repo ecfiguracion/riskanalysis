@@ -1,0 +1,24 @@
+<template>
+    <div class="login">
+        <div class="row">
+            <div class="col col-md-4"></div>    
+            <div class="col-md-4">
+                <form @submit.prevent="">
+                    <div class="form-group">
+                        <label for="emailAddress">Email address</label>
+                        <input type="email" class="form-control" id="emailAddress" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                    <button class="btn btn-primary" @click="onLogin">Submit</button>
+                    <button class="btn btn-primary" @click="onCancel">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style src="./login.css" />
+<script src="./login.ts"></script>

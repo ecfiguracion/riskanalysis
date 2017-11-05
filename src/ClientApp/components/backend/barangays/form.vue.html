@@ -1,0 +1,25 @@
+<template>
+    <div>
+        <h1>Barangay Form</h1>
+        
+        <form @submit.prevent="">
+            <div class="form-group">
+                <label for="barangayName">Name:</label>
+                <input type="text" class="form-control" id="barangayName" v-model="vm.Model.name">
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="number" class="form-control" id="latitude" v-model="vm.Model.latitude">
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="number" class="form-control" id="longitude" v-model="vm.Model.longitude">
+            </div>
+            <button class="btn btn-default" @click="onSave">Save</button>
+            <button class="btn btn-default" @click="onCancel">Cancel</button>
+        </form> 
+    </div>
+ 
+</template>
+
+<script src="./form.ts"></script>

@@ -1,0 +1,46 @@
+<template>
+    <div>
+        <h1>Barangays</h1>
+        
+        <form class="form-inline" @submit.prevent="">
+            <div class="form-group">
+                <label for="searchString">Search:</label>
+                <input class="form-control" id="searchString" v-model="vm.PagedParams.searchString">
+            </div>
+            <button class="btn btn-default" @click="vm.onSearch()">Search</button>
+            <button class="btn btn-default" @click="onNew()">New Barangay</button>
+        </form> 
+        <div>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in vm.Model">
+                        <td><router-link :to="`barangays/${item.id}`" exact>{{ item.name }}</router-link></td>
+                        <td>{{ item.latitude }}</td>
+                        <td>{{ item.longitude }}</td>
+                        <td>
+                            <a href="#" @click.prevent="onUpdate(item.id)">Edit</a> |
+                            <a href="#" @click.prevent="onDelete(item.id)">Delete</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="pagination">
+            <li><a href="#" @click.prevent="vm.onMoveFirst()"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+            <li><a href="#" @click.prevent="vm.onMovePrevious()"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li><a href="#" @click.prevent="vm.onMoveNext()"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+            <li><a href="#" @click.prevent="vm.onMoveLast()"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+        </ul>
+    </div>
+ 
+</template>
+
+<script src="./index.ts"></script>
