@@ -2,12 +2,13 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { FormBaseVM } from "../../../core/formbasevm";
+import moment from 'moment';
 
 @Component
 export default class FormComponent extends Vue {
 
     // Data Property
-    vm: FormBaseVM = new FormBaseVM("api/barangays", true);
+    vm: FormBaseVM = new FormBaseVM("api/typhoons", true);
     
 
     // Life Cycle Hook

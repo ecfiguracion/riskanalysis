@@ -6,6 +6,10 @@ interface PagedParams {
     pageNo: number;
     pageSize: number;
     pageCount: number;
+    parameter1?: number;
+    parameter2?: number;
+    parameter3?: number;
+    parameter5?: number;
 }
 
 export class PagedBaseVM {
@@ -13,6 +17,7 @@ export class PagedBaseVM {
     public APIUrl: string;
     public IsUseToken: boolean;
     public PagedParams: PagedParams;
+    public ExtParams: any[];
     public Model: object[];
 
     constructor(apiUrl: string,isUseToken: boolean) {
@@ -20,9 +25,14 @@ export class PagedBaseVM {
         this.APIUrl = apiUrl;
         this.PagedParams = { searchString: '', prevSearchString: '', pageNo: 1, pageSize: 10, pageCount: 0 };    
         this.Model = [];
+        this.ExtParams = [];
     }
 
     onSearch() {
+        //var paramValues: object[] = [];
+        //paramValues.push(this.PagedParams);
+        //paramValues.push(this.ExtParams);
+
         axios.get(this.APIUrl, {
             params: this.PagedParams
         })

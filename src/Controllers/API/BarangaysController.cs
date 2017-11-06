@@ -22,6 +22,7 @@ namespace TYRISKANALYSIS.Controllers.API
         [HttpGet]
         public IActionResult GetBarangays(PagedParams param)
         {
+            var request = this.Request.QueryString;
             return Ok(repository.GetAll(param));
         }
 

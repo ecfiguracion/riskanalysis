@@ -11,7 +11,7 @@ namespace TYRISKANALYSIS.DataLayer.Interfaces
     {
         LookUpModel GetById(int id);
         PagedResult<LookUpModel> GetAll(PagedParams pagedParams, int category);
-        int GetTotalCount(string whereClause, string searchString);
+        int GetTotalCount(string whereClause,int categoryid, string searchString);
         LookUpModel Add(LookUpModel barangay);
         LookUpModel Update(LookUpModel barangay);
         void Remove(int id);

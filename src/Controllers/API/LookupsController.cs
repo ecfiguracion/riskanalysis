@@ -13,20 +13,32 @@ namespace TYRISKANALYSIS.Controllers.API
     public class LookUpsController : Controller
     {
         private ILookUpRepository repository;
+        private IConfiguration appConfig;
 
         public LookUpsController(IConfiguration appconfig)
         {
+            appConfig = appconfig;
             repository = new LookUpRepository(appconfig);
         }
 
-        // GET api/barangays
-        [HttpGet]
-        public IActionResult GetLookUp(PagedParams param, int categoryid)
+        // GET api/lookups/datalookup
+        [HttpGet("datalookups")]
+        public IActionResult GetLookUp()
         {
-            return Ok(repository.GetAll(param,categoryid));
+            var category = new CategoryRepository(appConfig);
+
+            return Ok(category.Lists());
         }
 
-        // GET api/barangays/1
+        // GET api/lookups
+        [HttpGet]
+        public IActionResult GetLookUp(PagedParams param)
+        {
+            var categoryId = param.Parameter1;
+            return Ok(repository.GetAll(param,categoryId));
+        }
+
+        // GET api/lookups/1
         [HttpGet("{id}")]
         public IActionResult GetLookUp(int id)
         {
@@ -40,7 +52,7 @@ namespace TYRISKANALYSIS.Controllers.API
             return Ok(lookup);
         }
 
-        // POST api/barangays
+        // POST api/lookups
         [HttpPost]
         public IActionResult SaveCategory([FromBody] LookUpModel lookup)
         {

@@ -13,12 +13,20 @@ export class FormBaseVM {
     }
 
     find(id: number) {
-        if (id > 0) {
-            axios.get(this.APIUrl + '/' + id.toString())
-                .then(response => {
-                    this.Model = response.data;
-                })
-        }
+        return new Promise((resolve, reject) => {
+            if (id > 0) {
+                axios.get(this.APIUrl + '/' + id.toString())
+                    .then(response => {
+                        this.Model = response.data;
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error.response);
+                    })
+            } else {
+                resolve(this.Model);
+            }
+        });
     }
 
     save() {

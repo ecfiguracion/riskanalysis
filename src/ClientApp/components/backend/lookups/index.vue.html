@@ -5,23 +5,34 @@
         <form class="form-inline" @submit.prevent="">
             <div class="form-group">
                 <label for="searchString">Search:</label>
+                <div class="form-group">
+                    <select class="form-control" v-model="vm.PagedParams.parameter1">
+                        <option v-for="item in categories" v-bind:value="item.id">
+                            {{ item.name }}
+                        </option>
+                    </select>
+                </div>
+
                 <input class="form-control" id="searchString" v-model="vm.PagedParams.searchString">
             </div>
+
+
             <button class="btn btn-default" @click="vm.onSearch()">Search</button>
+            <button class="btn btn-default" @click="onNew()">New Item</button>
         </form>
         <div>
-            <table class="table table-condensed table-hover">
+            <table class="table table-condensed table-hover table-striped">
                 <thead>
                     <tr>
-                        <th>Code</th>
+                        <th>Category</th>
                         <th>Name</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in vm.Model">
-                        <td><router-link :to="`categories/${item.id}`" exact>{{ item.code }}</router-link></td>
-                        <td><router-link :to="`categories/${item.id}`" exact>{{ item.name }}</router-link></td>
+                        <td><router-link :to="`lookups/${item.categoryid}/${item.id}`" exact>{{ item.categoryName }}</router-link></td>
+                        <td><router-link :to="`lookups/${item.categoryid}/${item.id}`" exact>{{ item.name }}</router-link></td>
                         <td>
                             <a href="#" @click.prevent="onUpdate(item.id)">Edit</a>
                         </td>

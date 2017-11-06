@@ -12,8 +12,11 @@ export default class FormComponent extends Vue {
 
     // Life Cycle Hook
     mounted() {
+        var categoryId = Number(this.$route.params.categoryid);
         var id = Number(this.$route.params.id);
-        this.vm.find(id);
+        this.vm.find(id).then(data => {
+            (this.vm.Model as any).categoryid = categoryId;
+        });
     }
 
     // Component Methods

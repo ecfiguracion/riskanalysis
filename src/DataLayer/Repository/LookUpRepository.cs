@@ -28,7 +28,7 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         FROM lookup l
                         INNER JOIN Category c ON l.categoryid = c.id";
 
-            var sqlWhereClause = " WHERE c.categoryid = @categoryid";
+            var sqlWhereClause = " WHERE l.categoryid = @categoryid";
 
             // add filtering
             if (!string.IsNullOrEmpty(pagedParams.searchString))
@@ -48,16 +48,16 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             var searchString = "%" + pagedParams.searchString + "%";
             var lookups = db.Query<LookUpModel>(sql, new {  categoryid, searchString, pageNo, pagedParams.pageSize });
 
-            return new PagedResult<LookUpModel>(lookups, pagedParams, this.GetTotalCount(sqlWhereClause,searchString));
+            return new PagedResult<LookUpModel>(lookups, pagedParams, this.GetTotalCount(sqlWhereClause,categoryid,searchString));
         }
 
-        public int GetTotalCount(string whereClause,string searchString)
+        public int GetTotalCount(string whereClause,int categoryid, string searchString)
         {
             var sql = @"SELECT COUNT(l.id) 
                         FROM lookup l
                         INNER JOIN category c ON l.categoryid = c.id " + 
                         whereClause;
-            return db.Query<int>(sql,new { searchString } ).Single();
+            return db.Query<int>(sql,new { categoryid, searchString } ).Single();
         }
 
         public LookUpModel GetById(int id)
@@ -67,23 +67,23 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             return db.Query<LookUpModel>(sql, new { id }).SingleOrDefault();
         }
 
-        public LookUpModel Add(LookUpModel category)
+        public LookUpModel Add(LookUpModel lookup)
         {
             var sql = @"INSERT INTO lookup(name,categoryid)
                         VALUES (@Name,@CategoryId)
                         SELECT CAST(SCOPE_IDENTITY() AS int)";
-            var id = db.Query<int>(sql, category).Single();
-            category.Id = id;
-            return category;
+            var id = db.Query<int>(sql, lookup).Single();
+            lookup.Id = id;
+            return lookup;
         }
 
-        public LookUpModel Update(LookUpModel category)
+        public LookUpModel Update(LookUpModel lookup)
         {            
             var sql = @"UPDATE lookup SET 
                         name = @Name
                     WHERE id = @id";
-            db.Execute(sql, category);
-            return category;
+            db.Execute(sql, lookup);
+            return lookup;
         }
 
         public void Remove(int id)

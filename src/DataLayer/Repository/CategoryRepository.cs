@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TYRISKANALYSIS.Constants;
 using TYRISKANALYSIS.Controllers.API.Utilities;
 using TYRISKANALYSIS.DataLayer.Interfaces;
+using TYRISKANALYSIS.Models;
 
 namespace TYRISKANALYSIS.DataLayer.Repository
 {
@@ -84,5 +85,15 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         WHERE id = @id";
             db.Query<Category>(sql, new { id });
         }
+
+        #region Miscellaneous
+
+        public IEnumerable<Category> Lists()
+        {
+            var lists = db.Query<Category>("SELECT id,name FROM category ORDER by name");
+            return lists;
+        }
+
+        #endregion
     }
 }

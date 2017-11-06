@@ -17,6 +17,12 @@ namespace TYRISKANALYSIS.Controllers.API.Utilities
         public int pageSize { get; set; } 
         public int pageCount { get; set; }
 
+        // Extra Params
+        public int Parameter1 { get; set; }
+        public int Parameter2 { get; set; }
+        public int Parameter3 { get; set; }
+        public int Parameter4 { get; set; }
+
         public void SetPageNo()
         {
             if (this.searchString != this.prevSearchString)
