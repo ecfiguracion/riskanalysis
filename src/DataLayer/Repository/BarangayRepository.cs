@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TYRISKANALYSIS.Constants;
 using TYRISKANALYSIS.Controllers.API.Utilities;
 using TYRISKANALYSIS.DataLayer.Interfaces;
+using TYRISKANALYSIS.Models.LookUp;
 
 namespace TYRISKANALYSIS.DataLayer.Repository
 {
@@ -86,5 +87,15 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         WHERE id = @id";
             db.Query<Barangay>(sql, new { id });
         }
+
+        #region Miscellaneous
+
+        public IEnumerable<DataLookUpModel> Lists()
+        {
+            var lists = db.Query<DataLookUpModel>("SELECT id,name FROM barangay ORDER by name");
+            return lists;
+        }
+
+        #endregion
     }
 }

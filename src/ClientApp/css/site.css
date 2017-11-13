@@ -1,3 +1,167 @@
-.navbar {
-    border-radius: 0px;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
+
+body {
+	font-family:'Open Sans', Arial, sans-serif;
+	font-size:14px;
+    font-weight:300;
+	line-height:1.6em;    
+}
+
+
+.navbar-fixed-top {
+    background: #2B2B2B;
+}
+
+.menu .navbar h5 {
+    margin: 0px;
+    color: whitesmoke;
+    line-height: 20px;
+}
+
+.menu .nav li a:hover, .menu .nav li a:focus {
+    background: #0b5e56;
+}
+
+
+.menu .navbar-header a {
+    color: whitesmoke;
+    font-weight: 600;
+} 
+
+.menu .navbar-header a:hover {
+    color: #86becb;
+    font-weight: 600;
+} 
+
+.header {
+    background: #4267B2;
+    margin-top: 40px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.header .text-center h2 {
+    color: white;
+}
+
+.header .text-center h4 {
+    color: #b2e5e5;
+    margin:4px;
+}
+
+.features {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #C0CCE5;
+}
+
+.features .fa {
+    color: #16223B;
+}
+
+.features h4 {
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #535353;
+}
+
+.riskmap {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.row .features-section {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background: whitesmoke;
+}
+
+.features-section .fa {
+    padding-right: 10px;
+    color: #16223B;
+}
+
+.summary h3 {
+    line-height: 15px;
+}
+
+#mapid 
+{ 
+    height: 550px; 
+    margin:10px 0px;
+    position: relative;
+    z-index: 10;
+}
+
+.charts {
+    background: whitesmoke;
+    padding-top: 30px;
+    padding-bottom: 30px;    
+}
+
+.data {
+    padding-top: 30px;
+    padding-bottom: 30px;    
+}
+
+.inline-section {
+    display: inline-block;
+}
+
+#populationIcon {
+    color: orange;
+}
+
+#propertiesIcon {
+    color: goldenrod;
+}
+
+#lifelinesIcon {
+    color: blue;
+}
+
+#agricultureIcon {
+    color: green;
+}
+
+#totalIcon {
+    color: red;
+}
+
+.footer {
+    background-color: #2B2B2B;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.footer h6 {
+    color: gray;
+}
+
+.showSection {
+    display: block;
+}
+
+.hideSection {
+    display: none
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }

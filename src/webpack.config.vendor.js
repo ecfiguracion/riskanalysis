@@ -17,7 +17,9 @@ module.exports = (env) => {
                 'isomorphic-fetch',
                 'jquery',
                 'vue',
-                'vue-router'
+                'vue-router',
+                'font-awesome/css/font-awesome.css',
+                'leaflet/dist/leaflet.css'
             ],
         },
         module: {

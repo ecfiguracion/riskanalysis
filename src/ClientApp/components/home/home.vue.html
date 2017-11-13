@@ -1,67 +1,625 @@
 <template>
     <div>
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Typhoon Risk Analysis</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li>
-                    <router-link to="/" :exact="true">
-                        <span class="glyphicon glyphicon-home"></span> Home
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="#mapsection">
-                        <span class="glyphicon glyphicon-map-marker"></span> Map
-                    </router-link>
-                </li>                
-                <li>
-                    <router-link to="#chartsection">
-                        <span class="glyphicon glyphicon-stats"></span> Charts
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="#datasection">
-                        <span class="glyphicon glyphicon-duplicate"></span> Data
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="#trendssection">
-                        <span class="glyphicon glyphicon-random"></span> Trends
-                    </router-link>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <router-link to="/signup" :exact="true">
-                        <span class="glyphicon glyphicon-user"></span> Sign Up
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/login">
-                        <span class="glyphicon glyphicon-log-in"></span> Login
-                    </router-link>
-                </li>
-            </ul>        
-          </div>
-        </nav>       
-        <div>
-            <h1>Hello, world!</h1>
-            <p>Welcome to your new single-page application, built with:</p>
-            <ul>
-                <li><a href="https://get.asp.net/">ASP.NET Core</a> and <a href="https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx">C#</a> for cross-platform server-side code</li>
-                <li><a href="https://vuejs.org/">Vue.js</a> and <a href="http://www.typescriptlang.org/">TypeScript</a> for client-side code</li>
-                <li><a href="https://webpack.github.io/">Webpack</a> for building and bundling client-side resources</li>
-                <li><a href="http://getbootstrap.com/">Bootstrap</a> for layout and styling</li>
-            </ul>
-            <p>To help you get started, we've also set up:</p>
-            <ul>
-                <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-                <li><strong>Webpack dev middleware</strong>. In development mode, there's no need to run the <code>webpack</code> build tool. Your client-side resources are dynamically built on demand. Updates are available as soon as you modify any file.</li>
-                <li><strong>Hot module replacement</strong>. In development mode, you don't even need to reload the page after making most changes. Within seconds of saving changes to files, your Vue app will be rebuilt and a new instance injected is into the page.</li>
-                <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>
-            </ul>
+        <!--Menu-->
+        <div class="menu">
+            <div class="container">
+                <nav class="navbar navbar-fixed-top">
+                    <div class="container" >
+                      <!-- Brand and toggle get grouped for better mobile display -->
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarcollapse" aria-expanded="false">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Typhoon Risk Analysis</a>
+                      </div>
+                  
+                      <!-- Collect the nav links, forms, and other content for toggling -->
+                      <div class="collapse navbar-collapse" id="navbarcollapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <router-link to="/" :exact="true">
+                                    <h5><span class="fa fa-home fa-lg"></span> Home</h5>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="#mapsection">
+                                    <h5><span class="fa fa-map fa"></span> Map</h5>
+                                </router-link>
+                            </li>                
+                            <li>
+                                <router-link to="#chartsection">
+                                    <h5><span><i class="fa fa-bar-chart fa"></i></span> Charts</h5>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="#datasection">
+                                    <h5><span class="fa fa-database fa"></span> Data</h5>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="#trendssection">
+                                    <h5><span class="fa fa-line-chart fa"></span> Trends</h5>
+                                </router-link>
+                            </li>
+                        </ul>
+                      </div>
+                    </div><!-- /.container-fluid -->
+                  </nav>     
+            </div> 
         </div>
+
+        <!--Header-->
+        <div class="header">
+            <div class="container">
+                <div class="text-center">
+                    <img src="../../images/mdrrmclogo.png">
+                    <img src="../../images/stodomingo.png">
+                </div>
+                <div class="text-center">
+                    <h2>Typhoon Risk Analysis</h2>
+                    <h4>Municipal Disaster Risk Reduction Management Council</h4>
+                    <h4>Sto. Domingo Albay</h4>
+                </div>                
+            </div>
+        </div>
+
+        <!--Features-->
+        <div class="features">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-2 text-center">
+                        <span class="fa fa-map fa-3x"></span>
+                        <h4>Risk Map</h4>
+                        <h5>Know the disaster risk areas</h5>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <span class="fa fa-bar-chart fa-3x"></span>
+                        <h4>Graphs</h4>
+                        <h5>View visual insights of damages of disaster</h5>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <span class="fa fa-users fa-3x"></span>
+                        <h4>Demographic</h4>
+                        <h5>Understand effects on population</h5>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <span class="fa fa-line-chart fa-3x"></span>
+                        <h4>Risk Trends</h4>
+                        <h5>Find association patterns of damages</h5>
+                    </div>                       
+                </div>
+            </div>  
+        </div>
+        
+        <!--Risk Map-->
+        <div class="riskmap">
+            <!--Filter and Info-->
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-body features-section">
+                            <h5><span class="fa fa-map fa-2x"></span><strong>RISK MAP</strong></h5>
+                        </div>
+                    </div>                 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group inline-section">
+                                <label for="typhoon">Typhoon</label>
+                                <select class="form-control" id="typhoon">
+                                    <option>Milenyo</option>
+                                    <option>Nina</option>
+                                    <option>Reming</option>
+                                    <option>Dindo</option>
+                                </select>
+                            </div>
+                            <div class="form-group inline-section">
+                                <label for="layer">Layer</label>
+                                <select class="form-control" id="layer">
+                                    <option>Population</option>
+                                    <option>Lifelines</option>
+                                    <option>Properties</option>
+                                    <option>Agriculture</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-2">
+                                    <div class="summary">
+                                        <div>
+                                            <span id="populationIcon" class="fa fa-users fa-2x inline-section"></span>
+                                            <h3 class="inline-section">1.2K</h3>
+                                        </div>
+                                        <p>Populations</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="summary">
+                                        <div>
+                                            <span id="propertiesIcon" class="fa fa-building fa-2x inline-section"></span>
+                                            <h3 class="inline-section">3M</h3>
+                                        </div>
+                                        <p>Properties</p>   
+                                    </div>  
+                                </div>          
+                                <div class="col-md-2">
+                                    <div class="summary">
+                                        <div>
+                                            <span id="lifelinesIcon" class="fa fa-life-ring fa-2x inline-section"></span>
+                                            <h3 class="inline-section">1.5k</h3>
+                                        </div>
+                                        <p>Lifelines</p>
+                                    </div>
+                                </div>  
+                                <div class="col-md-2">
+                                    <div class="summary">
+                                        <div>
+                                            <span id="agricultureIcon" class="fa fa-leaf fa-2x inline-section"></span>
+                                            <h3 class="inline-section">25M</h3>
+                                        </div>
+                                        <p>Agriculture</p> 
+                                    </div>
+                                </div>       
+                                <div class="col-md-3">
+                                    <div class="summary">
+                                        <div>
+                                            <span id="totalIcon" class="fa fa-info-circle  fa-2x inline-section"></span>
+                                            <h3 class="inline-section">10M</h3>
+                                        </div>
+                                        <p>Total Damage</p> 
+                                    </div>  
+                                </div>                                                                                 
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Map-->
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div id="mapid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--Charts-->
+        <div class="charts">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-body features-section">
+                            <h5><span class="fa fa-bar-chart fa-2x"></span><strong>CHARTS</strong></h5>
+                        </div>
+                    </div>                  
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Affected Populations</h4>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <canvas id="mapPopulations" ref="mapPopulations" height="120px"></canvas>
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Damage on Lifelines</h4>
+                            <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <canvas id="mapLifelines" ref="mapLifelines" height="120px"></canvas>
+                                    </div>
+                                </div>                          
+                        </div>                    
+                    </div>
+                    <div class="row">
+                            <div class="col-md-6">
+                                <h4>Damage on Properties</h4>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <canvas id="mapProperties" ref="mapProperties" height="120px"></canvas>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Damage on Agriculture</h4>
+                                <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <canvas id="mapAgriculture" ref="mapAgriculture" height="120px"></canvas>
+                                        </div>
+                                    </div>                          
+                            </div>                    
+                        </div>                
+
+                </div>
+            </div>
+        </div>
+
+        <!--Data-->
+        <div class="data">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-body features-section">
+                            <h5><span class="fa fa-database fa-2x"></span><strong>DATA</strong></h5>
+                        </div>
+                    </div>     
+                    <strong><h4>Affected Population</h4></strong>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Displaced/Evacuated</strong>                                      
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Entity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Families</td>
+                                        <td class="text-center">2,942</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Persons</td>
+                                        <td class="text-center">10,483</td>
+                                    </tr>                                                                                                                                                                                                                                  
+                                </tbody>
+                            </table>                                  
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Casualties</strong>                                      
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Entity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Dead</td>
+                                        <td class="text-center">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Injured</td>
+                                        <td class="text-center">0</td>
+                                    </tr>  
+                                    <tr>
+                                        <td>Missing</td>
+                                        <td class="text-center">0</td>
+                                    </tr>                                                                                                                                                                                                                                                                     
+                                </tbody>
+                            </table>                                                          
+                        </div>
+                        
+                    </div>
+                    <strong><h4>Damaged Properties</h4></strong>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Structures</th>
+                                        <th>Totally Damaged</th>
+                                        <th>Critically Damaged</th>
+                                        <th>Estimated Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Houses</td>
+                                        <td class="text-center">395</td>
+                                        <td class="text-center">632</td>
+                                        <td class="text-center">61.25M</td>
+                                    </tr>
+                                    <tr>
+                                        <td>School Buildings</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">12</td>
+                                        <td class="text-center">5M</td>
+                                    </tr>                                
+                                    <tr>
+                                        <td>Goverment Offices</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">3M</td>
+                                    </tr>         
+                                    <tr>
+                                        <td>Public Markets</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">1.5M</td>
+                                    </tr>  
+                                    <tr>
+                                        <td>Flood Control</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">5</td>
+                                        <td class="text-center">8M</td>
+                                    </tr>                                                                                                                                                                                                  
+                                </tbody>
+
+                            </table>                                  
+                        </div>                     
+                    </div>       
+                    <strong><h4>Damaged Lifelines</h4></strong>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Transportation Facilities</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Location</th>
+                                        <th>Passable</th>
+                                        <th>Not Passable</th>
+                                        <th>Length(km)</th>
+                                        <th>Estimated Cost</th> 
+                                    </tr>                                
+                                </thead> 
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6"><strong>A. Roads</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1. Municipal</td>
+                                        <td >San Addres</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">2.0</td>
+                                        <td class="text-center">6.0M</td>
+                                    </tr>   
+                                    <tr>
+                                        <td>2. Barangay</td>
+                                        <td>FS Alinsog</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">5.3</td>
+                                        <td class="text-center">7.5M</td>
+                                    </tr>   
+                                    <tr>
+                                        <td colspan="6"><strong>B. Bridges</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1. RCBC</td>
+                                        <td>BSR, San Address, San Roque</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">4 units</td>
+                                        <td class="text-center">2.5M</td>
+                                    </tr>      
+                                    <tr>
+                                        <td colspan="6"><strong>C. Slope Protection</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1. Slop Suspension</td>
+                                        <td>FS</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">200m</td>
+                                        <td class="text-center">3.0M</td>
+                                    </tr>                                                                                                                                                                                                                                                                                                                                                                           
+                                </tbody>                                                       
+                            </table>                                  
+                        </div>                     
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Communication Facilities</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Location</th>
+                                        <th>Operational</th>
+                                        <th>Non Operational</th>
+                                        <th>Number</th>
+                                        <th>Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell Sites</td>
+                                        <td>San Roque</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">3</td>                                    
+                                        <td class="text-center"></td>
+                                    </tr>    
+                                    <tr>
+                                        <td>CATV</td>
+                                        <td>Entire Municipality</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">1</td>                                    
+                                        <td></td>
+                                    </tr>                                                                                                                                                                                                                                                                                                                                                                           
+                                </tbody>                                                       
+                            </table>                                  
+                        </div>                     
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Electrical Facilities</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Location</th>
+                                        <th>Operational</th>
+                                        <th>Non Operational</th>
+                                        <th>Number</th>
+                                        <th>Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>APEC</td>
+                                        <td>Entire Municipality</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">3</td>                                    
+                                        <td class="text-center"></td>
+                                    </tr>    
+                                </tbody>                                                      
+                            </table>                                  
+                        </div>                     
+                    </div>  
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Water Facilities</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Location</th>
+                                        <th>Operational</th>
+                                        <th>Non Operational</th>
+                                        <th>Number</th>
+                                        <th>Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Municipal Water Works</td>
+                                        <td>Entire Municipality</td>
+                                        <td class="text-center">Partly Operational</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">3</td>                                    
+                                        <td class="text-center">15.0M</td>
+                                    </tr>    
+                                    <tr>
+                                        <td>Barangay Water Works</td>
+                                        <td>All</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center">13</td>                                    
+                                        <td class="text-center">8.0M</td>
+                                    </tr>                                  
+                                </tbody>                                                   
+                            </table>                                  
+                        </div>                     
+                    </div>                                                
+                    <strong><h4>Damaged Agriculture</h4></strong>   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Crops</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center">Areas Damaged/Losses<br>(No. of Hectares)</th>
+                                        <th class="text-center">Metric Tons</th>
+                                        <th class="text-center">Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rice</td>
+                                        <td class="text-center">591</td>
+                                        <td class="text-center">746</td>
+                                        <td class="text-center">11.20M</td>
+                                    </tr>   
+                                    <tr>
+                                        <td>Coconut</td>
+                                        <td class="text-center">88</td>
+                                        <td class="text-center">146</td>
+                                        <td class="text-center">2.20M</td>
+                                    </tr>  
+                                    <tr>
+                                        <td>Corn</td>
+                                        <td class="text-center">89</td>
+                                        <td class="text-center">246</td>
+                                        <td class="text-center">12.20M</td>
+                                    </tr>                             
+                                    <tr>
+                                        <td>Root Crops</td>
+                                        <td class="text-center">90</td>
+                                        <td class="text-center">106</td>
+                                        <td class="text-center">10.20M</td>
+                                    </tr>                                                         
+                                </tbody>                                                  
+                            </table>                                  
+                        </div>    
+                        <div class="col-md-12">
+                            <strong>Fisheries</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center">Areas Damaged/Losses<br>(No. of Hectares)</th>
+                                        <th class="text-center">Metric Tons</th>
+                                        <th class="text-center">Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Fishpond</td>
+                                        <td class="text-center">591</td>
+                                        <td class="text-center">746</td>
+                                        <td class="text-center">11.20M</td>
+                                    </tr>   
+                                    <tr>
+                                        <td>Fishing</td>
+                                        <td class="text-center">88</td>
+                                        <td class="text-center">146</td>
+                                        <td class="text-center">2.20M</td>
+                                    </tr>  
+                                    <tr>
+                                        <td>Boats</td>
+                                        <td class="text-center">89</td>
+                                        <td class="text-center">246</td>
+                                        <td class="text-center">12.20M</td>
+                                    </tr>                                                                                     
+                                </tbody>                                             
+                            </table>                                  
+                        </div>    
+                        <div class="col-md-12">
+                            <strong>Livestock, Poultry and Fowl</strong>
+                            <table class="table table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Animals(No. of Hectares)</th>
+                                        <th>No. of Heads</th>
+                                        <th>Estimated Cost</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Livestock</td>
+                                        <td class="text-center">8</td>
+                                        <td class="text-center">200,000.00</td>
+                                    </tr>   
+                                    <tr>
+                                        <td>Poultry and Fowl</td>
+                                        <td class="text-center">967</td>
+                                        <td class="text-center">200,000.00</td>
+                                    </tr>  
+                                </tbody>                                            
+                            </table>                                  
+                        </div>                                                          
+                    </div>      
+                </div>                                                   
+            </div>
+        </div>
+
+    <!--Footer-->
+    <div class="footer">
+            <div class="container">            
+                <h6>&copy; Typhoon Risk. All Rights Reserved.</h6>
+                <h6>A capstone project for Masters in Information Technology</h6>
+                <h6>University of Cordilleras</h6>
+                <div>
+                    <a href="">Home |</a> 
+                    <a href="">Map |</a> 
+                    <a href="">Charts |</a> 
+                    <a href="">Data |</a> 
+                    <a href="">Trends |</a> 
+                </div>
+            </div>
+        </div>        
     </div>
 </template>
+
+<script src="./home.ts"></script>

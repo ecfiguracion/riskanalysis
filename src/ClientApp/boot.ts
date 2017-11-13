@@ -18,7 +18,8 @@ const routes = [
     {
         path: '/backend', component: require('./components/backend/main/main.vue.html'),
         children: [
-            { path: '/assessments', component: require('./components/backend/assessments/assessments.vue.html') },
+            { path: '/assessments', component: require('./components/backend/assessments/index.vue.html') },
+            { path: '/assessments/:id', component: require('./components/backend/assessments/form.vue.html') },
             { path: '/barangays', component: require('./components/backend/barangays/index.vue.html') },
             { path: '/barangays/:id', component: require('./components/backend/barangays/form.vue.html') },
             { path: '/categories', component: require('./components/backend/category/index.vue.html') },
@@ -30,6 +31,8 @@ const routes = [
         ]
     }
 ];
+
+export const eventBus = new Vue();
 
 new Vue({
     el: '#app-root',

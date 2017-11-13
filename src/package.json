@@ -25,7 +25,13 @@
     "webpack-hot-middleware": "^2.12.2"
   },
   "dependencies": {
+    "@types/chartjs": "0.0.31",
+    "@types/leaflet": "^1.2.2",
     "axios": "^0.17.0",
-    "moment": "^2.19.1"
+    "bootbox": "^4.4.0",
+    "chart.js": "^2.7.1",
+    "font-awesome": "^4.7.0",
+    "moment": "^2.19.1",
+    "vue2-leaflet": "0.0.56"
   }
 }

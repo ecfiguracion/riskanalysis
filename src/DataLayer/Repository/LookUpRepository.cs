@@ -10,6 +10,7 @@ using TYRISKANALYSIS.Constants;
 using TYRISKANALYSIS.Controllers.API.Utilities;
 using TYRISKANALYSIS.DataLayer.Interfaces;
 using TYRISKANALYSIS.DataLayer.Model;
+using TYRISKANALYSIS.Models.LookUp;
 
 namespace TYRISKANALYSIS.DataLayer.Repository
 {
@@ -66,6 +67,18 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         WHERE id = @id";
             return db.Query<LookUpModel>(sql, new { id }).SingleOrDefault();
         }
+
+        public IEnumerable<DataLookUpModel> GetByCategory(List<int> categories)
+        {
+            var ids = string.Join(",", categories);
+
+            var sql = @"SELECT l.id,l.name 
+                        FROM lookup l
+                        INNER JOIN category c ON l.CategoryId = c.Id
+                        WHERE c.code IN (" + ids + ")";
+            return db.Query<DataLookUpModel>(sql);
+        }
+
 
         public LookUpModel Add(LookUpModel lookup)
         {
