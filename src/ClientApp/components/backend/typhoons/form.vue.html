@@ -1,33 +1,52 @@
 <template>
-    <div>
-        <h1>Typhoon Detail</h1>
-        
-        <form @submit.prevent="">
-            <div class="form-group">
-                <label for="barangayName">Name:</label>
-                <input type="text" class="form-control" id="barangayName" v-model="vm.Model.name">
+        <div>
+            <div class="modal" v-bind:class="{ show: showForm, fade: !showForm }" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" @click="onCancel">&times;</button>
+                        <h4 class="modal-title"><span class="fa fa-pencil-square-o"></span> Typhoon</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">                 
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" v-model="vm.Model.name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="datehit">Date Hit</label>
+                                    <input type="text" class="form-control" id="datehit" v-model="vm.Model.dateHit" placeholder="MM/DD/YYYY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signalno">Signal No.</label>
+                                    <input type="number" class="form-control" id="signalno" v-model="vm.Model.signalNo">
+                                </div>                     
+                            </div>
+                            <div class="col-xs-4">                 
+                                <div class="form-group">
+                                    <label for="windkph">Recorded Wind KPH</label>
+                                    <input type="number" class="form-control" id="windkph" v-model="vm.Model.windKPH">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hourslasted">Hours Lasted</label>
+                                    <input type="number" class="form-control" id="hourslasted" v-model="vm.Model.hoursLasted">
+                                </div>                      
+                            </div>                            
+                        </div>               
+                        <div class="modal-footer">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-entry" @click="onSave"><span class="fa fa-floppy-o"></span> Save</button>
+                                <button type="button" class="btn btn-danger btn-entry" @click="onCancel"><span class="fa fa-times"></span> Close</button>
+                            </div> 
+                        </div>         
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="datehit">Date Hit</label>
-                <input type="text" class="form-control" id="datehit" v-model="vm.Model.dateHit" placeholder="MM/DD/YYYY">
-            </div>
-            <div class="form-group">
-                <label for="signalno">Signal No.</label>
-                <input type="number" class="form-control" id="signalno" v-model="vm.Model.signalNo">
-            </div>
-            <div class="form-group">
-                <label for="windkph">Recorded Wind KPH</label>
-                <input type="number" class="form-control" id="windkph" v-model="vm.Model.windKPH">
-            </div>
-            <div class="form-group">
-                <label for="hourslasted">Hours Lasted</label>
-                <input type="number" class="form-control" id="hourslasted" v-model="vm.Model.hoursLasted">
-            </div>
-            <button class="btn btn-default" @click="onSave">Save</button>
-            <button class="btn btn-default" @click="onCancel">Cancel</button>
-        </form> 
-    </div>
- 
-</template>
-
-<script src="./form.ts"></script>
+        </div>
+     
+    </template>
+    
+    <script src="./form.ts"></script>
+    

@@ -1,13 +1,15 @@
 <template>
     <div>
-        <h1>Assessment</h1>
-        
+        <p class="h3 text-primary"><span class="fa fa-check-square-o"></span> Post Assessment</p>  
+        <hr/>
         <div class="row">
             <div class="col-md-6">
                 <form @submit.prevent="">
                     <div class="form-group">
-                        <button class="btn btn-default" @click="onSave">Save</button>
-                        <button class="btn btn-default" @click="onCancel">Cancel</button>      
+                        <div class="btn-group">
+                            <button class="btn btn-success btn-entry" @click="onSave"><span class="fa fa-floppy-o"></span> Save</button>
+                            <button class="btn btn-warning btn-entry" @click="onCancel"><span class="fa fa-times"></span> Cancel</button>      
+                        </div>
                     </div>
                 </form> 
             </div>
@@ -35,144 +37,440 @@
             <div class="col-md-12">
                 <!--Typhoon Tab-->                
                 <div class="row" v-bind:class="{ showSection: selectedTab == 0, hideSection: selectedTab != 0}">
-                    <div class="col-md-6">  
-                        <div class="form-group">
-                            <label for="typhoon">Typhoon</label>
-                            <select id="typhoon" class="form-control" v-model="model.typhoon">
-                                <option v-for="item in typhoonsLookUp" v-bind:value="item">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>     
-                        <div class="form-group">
-                            <label for="remarks">Remarks</label>
-                            <input type="text" class="form-control" id="remarks" v-model="model.remarks">
-                        </div>                                             
-                    </div>  
+                    <div class="panel-section">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="inline-section">Basic Information</h5>
+                            </div>
+                            <div class="panel-body">	                    
+                                <div class="col-md-6">  
+                                    <div class="form-group">
+                                        <label for="typhoon">Typhoon</label>
+                                        <select id="typhoon" class="form-control input-sm" v-model="model.typhoon" required>
+                                            <option v-for="item in typhoonsLookUp" v-bind:value="item">
+                                                {{ item.name }}
+                                            </option>
+                                        </select>
+                                    </div>     
+                                    <div class="form-group">
+                                        <label for="remarks">Remarks</label>
+                                        <textarea type="text" class="form-control" id="remarks" v-model="model.remarks"></textarea>
+                                    </div>                                             
+                                </div>  
+                            </div>  
+                        </div>
+                    </div>
                 </div>
                 <!--End: Typhoon Tab-->
 
                 <!--Population Tab-->
-                <div class="row" v-bind:class="{ showSection: selectedTab == 1, hideSection: selectedTab != 1}">        
-                    <div>
-                        <h5 class="inline-section"><a href="#" @click.prevent="addNewPopulation"><span class="fa fa-plus fa-lg"></span> New </a></h5>        
-                        <h5 class="inline-section"><a href="#" @click.prevent="removePopulation"><span class="fa fa-trash-o fa-lg"></span> Remove </a></h5>        
-                    </div>
-                    <table class="table table-condensed table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Entities</th>
-                                <th>Barangay</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in model.population">
-                                <template v-if="!item.isdeleted">
-                                    <td> {{ item.entity.name }} </td>
-                                    <td> {{ item.barangay.name }} </td>
-                                    <td> {{ item.total }} </td>
-                                    <td>
-                                        <a href="#" @click.prevent="onEditPopulation(item)">Edit |</a> 
-                                        <a href="#" @click.prevent="onRemovePopulation(item)">Delete</a>                                     
-                                    </td>
-                                </template>
-                            </tr>                            
-                        </tbody>
-                    </table>       
-                    <populationForm/>                             
+                <div class="row" v-bind:class="{ showSection: selectedTab == 1, hideSection: selectedTab != 1}">        		
+                    <div class="panel-section">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h5 class="inline-section"><a href="#" @click.prevent="addNewPopulation"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                <h5 class="inline-section">Population Asessment</h5>
+                            </div>
+                            <div class="panel-body">  
+                                <table class="table table-condensed table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Entities</th>
+                                            <th>Barangay</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in model.population">
+                                            <template v-if="!item.isdeleted">
+                                                <td> <a href="#" @click.prevent="onEditPopulation(item)"><span class="fa fa-file-o"></span> {{ item.entity.name }} </a> </td>
+                                                <td> {{ item.barangay.name }} </td>
+                                                <td> {{ item.total }} </td>
+                                                <td>
+                                                    <a href="#" @click.prevent="onEditPopulation(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                    <a href="#" @click.prevent="onRemovePopulation(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                </td>
+                                            </template>
+                                        </tr>                            
+                                    </tbody>
+                                </table>       
+                                <populationForm/>                                                    
+                            </div>  
+                        </div>  
+                    </div>                             
                 </div>                
                 <!--Population Tab--> 
 
                 <!--Properties Tab-->
                 <div class="row" v-bind:class="{ showSection: selectedTab == 2, hideSection: selectedTab != 2}">        
-                    <div>
-                        <h5 class="inline-section"><a href="#" @click.prevent="addNewProperties"><span class="fa fa-plus fa-lg"></span> New </a></h5>        
-                        <h5 class="inline-section"><a href="#" @click.prevent="removeProperties"><span class="fa fa-trash-o fa-lg"></span> Remove </a></h5>        
-                    </div>
-                    <table class="table table-condensed table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Structures</th>
-                                <th>Barangay</th>
-                                <th>Is Totally Damaged?</th>
-                                <th>Is Critically Damaged?</th>
-                                <th>Estimated Cost</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in model.properties">
-                                <template v-if="!item.isdeleted">
-                                    <td> {{ item.structure.name }} </td>
-                                    <td> {{ item.barangay.name }} </td>
-                                    <td class="text-center"> 
-                                        <span v-if="item.isTotallyDamaged" class="fa fa-check"></span> 
-                                        <span v-if="!item.isTotallyDamaged" class="fa fa-square-o"></span>
-                                    </td>
-                                    <td class="text-center"> 
-                                        <span v-if="item.isCriticallyDamaged" class="fa fa-check"></span>
-                                        <span v-if="!item.isCriticallyDamaged" class="fa fa-square-o"></span>
-                                    </td>
-                                    <td> {{ item.estimatedCost }} </td>
-                                    <td>
-                                        <a href="#" @click.prevent="onEditProperties(item)">Edit |</a> 
-                                        <a href="#" @click.prevent="onRemoveProperties(item)">Delete</a>                                     
-                                    </td>
-                                </template>
-                            </tr>                            
-                        </tbody>
-                    </table>       
-                    <propertiesForm/>                             
+                    <div class="panel-section">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="inline-section"><a href="#" @click.prevent="addNewProperties"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                <h5 class="inline-section">Properties Assessment</h5>
+                            </div>
+                            <div class="panel-body">   
+                                <table class="table table-condensed table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Structures</th>
+                                            <th>Barangay</th>
+                                            <th>Is Totally Damaged?</th>
+                                            <th>Is Critically Damaged?</th>
+                                            <th>Estimated Cost</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in model.properties">
+                                            <template v-if="!item.isdeleted">
+                                                <td>
+                                                    <a href="#" @click.prevent="onEditProperties(item)"><span class="fa fa-file-o"></span> {{ item.structure.name }}  </a>   
+                                                </td>
+                                                <td> {{ item.barangay.name }} </td>
+                                                <td class="text-center"> 
+                                                    <span v-if="item.isTotallyDamaged" class="fa fa-check"></span> 
+                                                    <span v-if="!item.isTotallyDamaged" class="fa fa-square-o"></span>
+                                                </td>
+                                                <td class="text-center"> 
+                                                    <span v-if="item.isCriticallyDamaged" class="fa fa-check"></span>
+                                                    <span v-if="!item.isCriticallyDamaged" class="fa fa-square-o"></span>
+                                                </td>
+                                                <td> {{ item.estimatedCost }} </td>
+                                                <td>
+                                                    <a href="#" @click.prevent="onEditProperties(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                    <a href="#" @click.prevent="onRemoveProperties(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                </td>
+                                            </template>
+                                        </tr>                            
+                                    </tbody>
+                                </table>       
+                                <propertiesForm/>   
+                            </div>  
+                        </div>
+                    </div>                            
                 </div>                 
                 <!--Properties Tab-->
 
                 <!--Lifelines Tab-->
                 <div class="row" v-bind:class="{ showSection: selectedTab == 3, hideSection: selectedTab != 3}">        
+                    <!--Transportation Facilities-->
                     <div class="row">
-                        <div>
-                            <h5 class="inline-section"><a href="#" @click.prevent="addNewTransportation"><span class="fa fa-plus fa-lg"></span> New </a></h5>        
-                            <h5 class="inline-section"><a href="#" @click.prevent="removeTransportation"><span class="fa fa-trash-o fa-lg"></span> Remove </a></h5>        
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewTransportation"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Transportation Facilities</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Facilities</th>
+                                                <th>Description</th>
+                                                <th>Location</th>
+                                                <th>Is Passable?</th>
+                                                <th>Length (KM)</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.transportation">
+                                                <template v-if="!item.isdeleted">
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditTransportation(item)"><span class="fa fa-file-o"></span> {{ item.facility.name }} </a>  
+                                                    </td>
+                                                    <td> {{ item.description }} </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td class="text-center"> 
+                                                        <span v-if="item.isPassable" class="fa fa-check"></span> 
+                                                        <span v-if="!item.isPassable" class="fa fa-square-o"></span>
+                                                    </td>
+                                                    <td> {{ item.lengthKM }} </td>                                    
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditTransportation(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveTransportation(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                    </td>
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <transportationForm/>   
+                                </div>
+                            </div>  
                         </div>
-                        <table class="table table-condensed table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Facilities</th>
-                                    <th>Description</th>
-                                    <th>Location</th>
-                                    <th>Is Passable?</th>
-                                    <th>Length (KM)</th>
-                                    <th>Estimated Cost</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in model.transportation">
-                                    <template v-if="!item.isdeleted">
-                                        <td> {{ item.facility.name }} </td>
-                                        <td> {{ item.description }} </td>
-                                        <td> {{ item.barangay.name }} </td>
-                                        <td class="text-center"> 
-                                            <span v-if="item.isPassable" class="fa fa-check"></span> 
-                                            <span v-if="!item.isPassable" class="fa fa-square-o"></span>
-                                        </td>
-                                        <td> {{ item.lengthKM }} </td>                                    
-                                        <td> {{ item.estimatedCost }} </td>
-                                        <td>
-                                            <a href="#" @click.prevent="onEditTransportation(item)">Edit |</a> 
-                                            <a href="#" @click.prevent="onRemoveTransportation(item)">Delete</a>                                     
-                                        </td>
-                                    </template>
-                                </tr>                            
-                            </tbody>
-                        </table>       
-                        <transportationForm/>   
-                    </div>                          
+                    </div> 
+                    
+                    <!--Communication Facilities -->
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewCommunication"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Communication Facilities</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Facilities</th>
+                                                <th>Location</th>
+                                                <th>Is Operational?</th>
+                                                <th>Total</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.communication">
+                                                <template v-if="!item.isdeleted">
+                                                    <td> <a href="#" @click.prevent="onEditCommunication(item)"><span class="fa fa-file-o"></span> {{ item.facility.name }} </a> </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td class="text-center"> 
+                                                        <span v-if="item.isOperational" class="fa fa-check"></span> 
+                                                        <span v-if="!item.isOperational" class="fa fa-square-o"></span>
+                                                    </td>
+                                                    <td> {{ item.total }} </td>                                    
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditCommunication(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveCommunication(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                    </td>
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>     
+                                    <communicationForm/>  
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                           
+                    
+                    <!--Electrical Power Facilities -->      
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewElectricalPower"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Electrical Power Facilities</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Facilities</th>
+                                                <th>Location</th>
+                                                <th>Is Operational?</th>
+                                                <th>Total</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.electricalPower">
+                                                <template v-if="!item.isdeleted">
+                                                    <td> <a href="#" @click.prevent="onEditElectricalPower(item)"><span class="fa fa-file-o"></span> {{ item.facility.name }} </a> </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td class="text-center"> 
+                                                        <span v-if="item.isOperational" class="fa fa-check"></span> 
+                                                        <span v-if="!item.isOperational" class="fa fa-square-o"></span>
+                                                    </td>
+                                                    <td> {{ item.total }} </td>                                    
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditElectricalPower(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveElectricalPower(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                    </td>
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <electricalPowerForm/>  
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                     
+                    
+                    <!--Water Facilities -->  
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewWaterFacilities"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Water Facilities</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Facilities</th>
+                                                <th>Location</th>
+                                                <th>Is Operational?</th>
+                                                <th>Total</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.waterFacilities">
+                                                <template v-if="!item.isdeleted">
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditWaterFacilities(item)"><span class="fa fa-file-o"></span> {{ item.facility.name }} </a>                                   
+                                                    </td>                                                    
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td class="text-center"> 
+                                                        <span v-if="item.isOperational" class="fa fa-check"></span> 
+                                                        <span v-if="!item.isOperational" class="fa fa-square-o"></span>
+                                                    </td>
+                                                    <td> {{ item.total }} </td>                                    
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditWaterFacilities(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveWaterFacilities(item)"><span class="fa fa-trash"></span> Delete</a>  
+                                                    </td>   
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <waterFacilitiesForm/>   
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                                     
                 </div>                   
                 <!--Lifelines Tab-->
 
                 <!--Agriculture Tab-->
+                <div class="row" v-bind:class="{ showSection: selectedTab == 4, hideSection: selectedTab != 4}">        
+
+                    <!--Crops-->
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewCrops"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Crops</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Crops</th>
+                                                <th>Location</th>
+                                                <th>Areas Damaged/Looses (No. of Hectares)</th>
+                                                <th>Metric Tons</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.crops">
+                                                <template v-if="!item.isdeleted">
+                                                    <td> <a href="#" @click.prevent="onEditCrops(item)"><span class="fa fa-file-o"></span> {{ item.crops.name }} </a> </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td> {{ item.areaDamaged }} </td>
+                                                    <td> {{ item.metricTons }} </td>                                  
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditCrops(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveCrops(item)"><span class="fa fa-trash"></span> Delete</a>  
+                                                    </td>                                                      
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <cropsForm/>     
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                     
+                    
+                    <!--Fisheries -->
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewFisheries"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Fisheries</h5>
+                                </div>
+                                <div class="panel-body">	
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Fisheries</th>
+                                                <th>Location</th>
+                                                <th>Areas Damaged/Looses (No. of Hectares)</th>
+                                                <th>Metric Tons</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.fisheries">
+                                                <template v-if="!item.isdeleted">
+                                                    <td> <a href="#" @click.prevent="onEditFisheries(item)"><span class="fa fa-file-o"></span> {{ item.fishery.name }} </a> </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td> {{ item.areaDamaged }} </td>
+                                                    <td> {{ item.metricTons }} </td>                                  
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditFisheries(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveFisheries(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                    </td>
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <fisheriesForm/>                                      
+                                </div>
+                            </div>
+                        </div> 
+                    </div>        
+                    
+                    <!--Livestock -->
+                    <div class="row">
+                        <div class="panel-section">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h5 class="inline-section"><a href="#" @click.prevent="addNewLivestock"><span class="fa fa-plus fa-lg"></span></a></h5>                                                
+                                    <h5 class="inline-section">Livestock</h5>
+                                </div>
+                                <div class="panel-body">	
+                                    <table class="table table-condensed table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Livestock</th>
+                                                <th>Location</th>
+                                                <th>No. of Heads</th>
+                                                <th>Estimated Cost</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in model.livestocks">
+                                                <template v-if="!item.isdeleted">
+                                                    <td> <a href="#" @click.prevent="onEditLivestock(item)"><span class="fa fa-file-o"></span> {{ item.livestock.name }} </a> </td>
+                                                    <td> {{ item.barangay.name }} </td>
+                                                    <td> {{ item.total }} </td>                               
+                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td>
+                                                        <a href="#" @click.prevent="onEditLivestock(item)"><span class="fa fa-pencil"></span> Edit |</a> 
+                                                        <a href="#" @click.prevent="onRemoveLivestock(item)"><span class="fa fa-trash"></span> Delete</a>                                     
+                                                    </td>
+                                                </template>
+                                            </tr>                            
+                                        </tbody>
+                                    </table>       
+                                    <livestockForm/>                                     	 
+                                </div>  
+                            </div>  
+                        </div>  
+                    </div>  
+                                                    
+                </div>                   
                 <!--Agriculture Tab-->                
             </div>
         </div>
@@ -180,4 +478,5 @@
  
 </template>
 
+<style src="./form.css"></style>
 <script src="./form.ts"></script>

@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { eventBus } from "../../../boot";
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { FormBaseVM } from "../../../core/formbasevm";
@@ -8,27 +9,39 @@ export default class FormComponent extends Vue {
 
     // Data Property
     vm: FormBaseVM = new FormBaseVM("api/lookups", true);
-    
+    showForm: boolean = false; 
 
     // Life Cycle Hook
     mounted() {
-        var categoryId = Number(this.$route.params.categoryid);
-        var id = Number(this.$route.params.id);
-        this.vm.find(id).then(data => {
-            (this.vm.Model as any).categoryid = categoryId;
-        });
+        eventBus.$on('lookupForm', (id: number, categoryId: number) => {
+            if (id == 0) {
+                this.vm.Model = {};
+                (this.vm.Model as any).categoryid = categoryId;
+            }
+            else {
+                this.vm.find(id).then(data => {
+                    (this.vm.Model as any).categoryid = categoryId;
+                });
+            }
+            this.showForm = true;
+        })         
     }
 
     // Component Methods
     onSave() {
         this.vm.save()
         .then(data => { 
-            this.$router.go(-1);
+            this.showForm = false;
+            eventBus.$emit('saveLookup');
         })
         .catch(error => { });
     }   
 
     onCancel() {
-        this.$router.go(-1);
+        this.showForm = false;
     }
+
+    beforeDestroy() {
+        eventBus.$off('lookupForm');
+    }          
 }

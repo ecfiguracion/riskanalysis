@@ -2,7 +2,7 @@ import Vue, { component } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { eventBus } from "../../../../boot";
 import  LookUp  from "../../model/lookup";
-import { Transportation } from "../model/assessment";
+import { ElectricalPower } from "../model/assessment";
 
 @Component
 export default class FormComponent extends Vue {
@@ -10,7 +10,7 @@ export default class FormComponent extends Vue {
     // Data Property
     barangaysLookUp: LookUp[] = [];
     facilitiesLookUp: LookUp[] = [];
-    model: Transportation = new Transportation();
+    model: ElectricalPower = new ElectricalPower();
 
     showForm: boolean = false;
 
@@ -19,17 +19,17 @@ export default class FormComponent extends Vue {
     }
 
     created() {
-        eventBus.$on('setTransportationFormLookup',(barangays: LookUp[],facilities: LookUp[]) => {
+        eventBus.$on('setElectricalPowerFormLookup',(barangays: LookUp[],facilities: LookUp[]) => {
             this.barangaysLookUp = barangays;
             this.facilitiesLookUp = facilities;
         })
 
-        eventBus.$on('newTransportationAssessment', () => {
+        eventBus.$on('newElectricalPowerAssessment', () => {
             this.showForm = true;
-            this.model = new Transportation();
+            this.model = new ElectricalPower();
         })        
 
-        eventBus.$on('editTransportationAssessment', (data: Transportation) => {
+        eventBus.$on('editElectricalPowerAssessment', (data: ElectricalPower) => {
             this.showForm = true;
             this.model = data;
         })        
@@ -37,16 +37,16 @@ export default class FormComponent extends Vue {
     }
 
     beforeDestroy() {
-        eventBus.$off('setTransportationFormLookup');
-        eventBus.$off('newTransportationAssessment');
-        eventBus.$off('editTransportationAssessment');
+        eventBus.$off('setElectricalPowerFormLookup');
+        eventBus.$off('newElectricalPowerAssessment');
+        eventBus.$off('editElectricalPowerAssessment');
     }
 
     // Component Methods
 
     save() {
         this.showForm = false;
-        eventBus.$emit('saveTransportationAssessment',this.model);
+        eventBus.$emit('saveElectricalPowerAssessment',this.model);
     }
 
     close() {

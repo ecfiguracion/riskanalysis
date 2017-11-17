@@ -16,5 +16,8 @@ namespace TYRISKANALYSIS.Models
         public IEnumerable<LookUp.DataLookUpModel> CommunicationLookup { get; set; }
         public IEnumerable<LookUp.DataLookUpModel> ElectricalPowerLookup { get; set; }
         public IEnumerable<LookUp.DataLookUpModel> WaterFacilitiesLookup { get; set; }
+        public IEnumerable<LookUp.DataLookUpModel> CropsLookup { get; set; }
+        public IEnumerable<LookUp.DataLookUpModel> FisheriesLookup { get; set; }
+        public IEnumerable<LookUp.DataLookUpModel> LivestockLookup { get; set; }
     }
 }

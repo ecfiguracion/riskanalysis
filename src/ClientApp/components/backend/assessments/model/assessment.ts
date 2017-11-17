@@ -2,7 +2,6 @@ import  LookUp  from "../../model/lookup";
 
 class Population {
     id: number = 0;
-    assessmentId: number = 0;
     entity: LookUp;
     barangay: LookUp;
     total: number;
@@ -12,7 +11,6 @@ class Population {
 
 class Properties {
     id: number = 0;
-    assessmentId: number = 0;
     structure: LookUp;
     barangay: LookUp;
     isTotallyDamaged: boolean = false;
@@ -24,7 +22,6 @@ class Properties {
 
 class Transportation {
     id: number = 0;
-    assessmentId: number = 0;
     description: string;
     facility: LookUp;
     barangay: LookUp;
@@ -37,7 +34,6 @@ class Transportation {
 
 class Communication {
     id: number = 0;
-    assessmentId: number = 0;
     facility: LookUp;
     barangay: LookUp;
     isOperational: boolean = false;
@@ -49,7 +45,6 @@ class Communication {
 
 class ElectricalPower {
     id: number = 0;
-    assessmentId: number = 0;
     facility: LookUp;
     barangay: LookUp;
     isOperational: boolean = false;
@@ -61,7 +56,6 @@ class ElectricalPower {
 
 class WaterFacilities {
     id: number = 0;
-    assessmentId: number = 0;
     facility: LookUp;
     barangay: LookUp;
     isOperational: boolean = false;
@@ -71,6 +65,38 @@ class WaterFacilities {
     isdeleted: boolean = false;
 }
 
+class Crops {
+    id: number = 0;
+    barangay: LookUp;
+    crops: LookUp;
+    areaDamaged: number;
+    metricTons: number;
+    estimatedCost: number;
+    rowId: number = 0;
+    isdeleted: boolean = false;
+}
+
+class Fisheries {
+    id: number = 0;
+    barangay: LookUp;
+    fishery: LookUp;
+    areaDamaged: number;
+    metricTons: number;
+    estimatedCost: number;
+    rowId: number = 0;
+    isdeleted: boolean = false;
+}
+
+class Livestock {
+    id: number = 0;
+    assessmentId: number = 0;
+    barangay: LookUp;
+    livestock: LookUp;
+    total: number;
+    estimatedCost: number;
+    rowId: number = 0;
+    isdeleted: boolean = false;
+}
 
 class Assessment {
     /* One to One Properties */
@@ -85,6 +111,13 @@ class Assessment {
     communication: Communication[] = [];
     electricalPower: ElectricalPower[] = [];
     waterFacilities: WaterFacilities[] = [];
+    crops: Crops[] = [];
+    fisheries: Fisheries[] = [];
+    livestocks: Livestock[] = [];
 }
 
-export { Assessment, Population, Properties, Transportation, Communication, ElectricalPower, WaterFacilities }
+export { 
+    Assessment, Population, Properties, Transportation, 
+    Communication, ElectricalPower, WaterFacilities, Crops,
+    Fisheries, Livestock
+}

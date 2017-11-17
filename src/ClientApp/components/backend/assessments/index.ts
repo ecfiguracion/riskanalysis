@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { PagedBaseVM } from "../../../core/pagedbasevm";
+import bootbox from 'bootbox';
 
 @Component
 export default class IndexComponent extends Vue {
@@ -24,10 +25,28 @@ export default class IndexComponent extends Vue {
     }
 
     onDelete(id: number) {
-        this.vm.onDelete(id)
-        .then(data => { 
-            this.vm.onSearch();
-        })
-        .catch(error => { });
+        bootbox.confirm({
+            title: "Delete Record",
+            message: "Are you sure you wish to delete this record?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: (result) => {
+                if (result) {
+                    this.vm.onDelete(id)
+                    .then(data => { 
+                        this.vm.onSearch();
+                    })
+                    .catch(error => { }); 
+                }    
+            }
+        });            
     }
 }

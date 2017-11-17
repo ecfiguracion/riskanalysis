@@ -16,6 +16,6 @@ namespace TYRISKANALYSIS.Constants
         public const int WaterFacilities = 10006;
         public const int Crops = 10007;
         public const int Fisheries = 10008;
-        public const int Animals = 10009;
+        public const int Livestock = 10009;
     }
 }

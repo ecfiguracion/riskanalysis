@@ -2,7 +2,7 @@ import Vue, { component } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { eventBus } from "../../../../boot";
 import  LookUp  from "../../model/lookup";
-import { Transportation } from "../model/assessment";
+import { WaterFacilities } from "../model/assessment";
 
 @Component
 export default class FormComponent extends Vue {
@@ -10,7 +10,7 @@ export default class FormComponent extends Vue {
     // Data Property
     barangaysLookUp: LookUp[] = [];
     facilitiesLookUp: LookUp[] = [];
-    model: Transportation = new Transportation();
+    model: WaterFacilities = new WaterFacilities();
 
     showForm: boolean = false;
 
@@ -19,17 +19,18 @@ export default class FormComponent extends Vue {
     }
 
     created() {
-        eventBus.$on('setTransportationFormLookup',(barangays: LookUp[],facilities: LookUp[]) => {
+        eventBus.$on('setWaterFacilitiesFormLookup',(barangays: LookUp[],facilities: LookUp[]) => {
             this.barangaysLookUp = barangays;
             this.facilitiesLookUp = facilities;
         })
 
-        eventBus.$on('newTransportationAssessment', () => {
+        eventBus.$on('newWaterFacilitiesAssessment', () => {
+            console.log("newWaterFacilitiesAssessment");
             this.showForm = true;
-            this.model = new Transportation();
+            this.model = new WaterFacilities();
         })        
 
-        eventBus.$on('editTransportationAssessment', (data: Transportation) => {
+        eventBus.$on('editWaterFacilitiesAssessment', (data: WaterFacilities) => {
             this.showForm = true;
             this.model = data;
         })        
@@ -37,16 +38,16 @@ export default class FormComponent extends Vue {
     }
 
     beforeDestroy() {
-        eventBus.$off('setTransportationFormLookup');
-        eventBus.$off('newTransportationAssessment');
-        eventBus.$off('editTransportationAssessment');
+        eventBus.$off('setWaterFacilitiesFormLookup');
+        eventBus.$off('newWaterFacilitiesAssessment');
+        eventBus.$off('editWaterFacilitiesAssessment');
     }
 
     // Component Methods
 
     save() {
         this.showForm = false;
-        eventBus.$emit('saveTransportationAssessment',this.model);
+        eventBus.$emit('saveWaterFacilitiesAssessment',this.model);
     }
 
     close() {

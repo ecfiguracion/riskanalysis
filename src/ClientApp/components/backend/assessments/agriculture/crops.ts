@@ -2,15 +2,15 @@ import Vue, { component } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { eventBus } from "../../../../boot";
 import  LookUp  from "../../model/lookup";
-import { Transportation } from "../model/assessment";
+import { Crops } from "../model/assessment";
 
 @Component
 export default class FormComponent extends Vue {
     
     // Data Property
     barangaysLookUp: LookUp[] = [];
-    facilitiesLookUp: LookUp[] = [];
-    model: Transportation = new Transportation();
+    cropsLookUp: LookUp[] = [];
+    model: Crops = new Crops();
 
     showForm: boolean = false;
 
@@ -19,17 +19,17 @@ export default class FormComponent extends Vue {
     }
 
     created() {
-        eventBus.$on('setTransportationFormLookup',(barangays: LookUp[],facilities: LookUp[]) => {
+        eventBus.$on('setCropsFormLookup',(barangays: LookUp[],crops: LookUp[]) => {
             this.barangaysLookUp = barangays;
-            this.facilitiesLookUp = facilities;
+            this.cropsLookUp = crops;
         })
 
-        eventBus.$on('newTransportationAssessment', () => {
+        eventBus.$on('newCropsAssessment', () => {
             this.showForm = true;
-            this.model = new Transportation();
+            this.model = new Crops();
         })        
 
-        eventBus.$on('editTransportationAssessment', (data: Transportation) => {
+        eventBus.$on('editCropsAssessment', (data: Crops) => {
             this.showForm = true;
             this.model = data;
         })        
@@ -37,16 +37,16 @@ export default class FormComponent extends Vue {
     }
 
     beforeDestroy() {
-        eventBus.$off('setTransportationFormLookup');
-        eventBus.$off('newTransportationAssessment');
-        eventBus.$off('editTransportationAssessment');
+        eventBus.$off('setCropsFormLookup');
+        eventBus.$off('newCropsAssessment');
+        eventBus.$off('editCropsAssessment');
     }
 
     // Component Methods
 
     save() {
         this.showForm = false;
-        eventBus.$emit('saveTransportationAssessment',this.model);
+        eventBus.$emit('saveCropsAssessment',this.model);
     }
 
     close() {

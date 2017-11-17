@@ -62,5 +62,13 @@ namespace TYRISKANALYSIS.Controllers.API
                 repository.Update(lookup);
             return Ok(lookup);
         }
+
+        // DELETE api/typhoons/1
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            repository.Remove(id);
+            return Ok();
+        }
     }
 }

@@ -1,44 +1,107 @@
 <template>
     <div>
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Typhoon Risk Analysis</a>
-            </div>     
-          </div>
-        </nav>          
+        <div class="menu">
+            <div class="container">
+                <nav class="navbar navbar-fixed-top">
+                    <div class="container" >
+                      <!-- Brand and toggle get grouped for better mobile display -->
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarcollapse" aria-expanded="false">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" @click.prevent="" href="#"><span class="fa fa-th-large fa-lg"></span> Typhoon Risk Analysis</a>
+                      </div>
+                  
+                      <!-- Collect the nav links, forms, and other content for toggling -->
+                      <div class="collapse navbar-collapse" id="navbarcollapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <router-link to="/assessments">
+                                    <h5><span class="fa fa-check-square-o fa-lg"></span> Post Assessments</h5>
+                                </router-link>
+                            </li>                
+                            <li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <h5><span><i class="fa fa-cog fa-lg"></i></span> Settings <span class="caret"></span></h5></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <router-link to="/barangays">
+                                                    <p class="h5"><span><i class="fa fa-street-view fa-lg"></i></span> Barangays</p>
+                                            </router-link>                                            
+                                        </li>                                        
+                                        <li>
+                                            <router-link to="/typhoons">
+                                                    <p class="h5"><span><i class="fa fa-table fa-lg"></i></span> Typhoons</p>
+                                            </router-link>                                            
+                                        </li>
+                                        <li role="separator" class="divider"></li>                                        
+                                        <li>
+                                            <router-link to="/categories">
+                                                    <p class="h5"><span><i class="fa fa-th-large fa-lg"></i></span> Categories</p>
+                                            </router-link>                                            
+                                        </li>                                      
+                                        <li>
+                                            <router-link to="/lookups">
+                                                    <p class="h5"><span><i class="fa fa-link fa-lg"></i></span> Lookups</p>
+                                            </router-link>                                            
+                                        </li>
+                                    </ul>
+                                </li>                                
+                            </li>
+                            <li>
+                                <router-link to="/backend">
+                                    <h5><span class="fa fa-users fa-lg"></span> Users</h5>
+                                </router-link>
+                            </li>                             
+                            <li>
+                                <router-link to="/backend">
+                                    <h5><span class="fa fa-info-circle fa-lg"></span> About</h5>
+                                </router-link>
+                            </li>                              
+                        </ul>                        
+                      </div>
+                    </div><!-- /.container-fluid -->
+                  </nav>     
+            </div> 
+        </div>          
         <div class="row">
-            <div class="col-sm-2">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <router-link to="/assessments" :exact="true">
-                            <span class="glyphicon glyphicon-home"></span> Assessments
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/barangays">
-                            <span class="glyphicon glyphicon-education"></span> Barangays
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/typhoons">
-                            <span class="glyphicon glyphicon-education"></span> Typhoons
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/categories">
-                            <span class="glyphicon glyphicon-th-list"></span> Categories
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/lookups">
-                            <span class="glyphicon glyphicon-th-list"></span> Lookups
-                        </router-link>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-10">
-                <router-view></router-view>
+            <ul class="nav navbar-nav">
+                <li>
+                    <router-link to="/assessments" :exact="true">
+                        <span class="glyphicon glyphicon-home"></span> Assessments
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/barangays">
+                        <span class="glyphicon glyphicon-education"></span> Barangays
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/typhoons">
+                        <span class="glyphicon glyphicon-education"></span> Typhoons
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/categories">
+                        <span class="glyphicon glyphicon-th-list"></span> Categories
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/lookups">
+                        <span class="glyphicon glyphicon-th-list"></span> Lookups
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="backendcontent">
+            <div class="container">
+                <router-view></router-view>            
             </div>
         </div>
     </div>

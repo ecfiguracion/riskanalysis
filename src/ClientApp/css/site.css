@@ -49,92 +49,6 @@ body {
     margin:4px;
 }
 
-.features {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background: #C0CCE5;
-}
-
-.features .fa {
-    color: #16223B;
-}
-
-.features h4 {
-    font-weight: bold;
-    margin-bottom: 0px;
-    color: #535353;
-}
-
-.riskmap {
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.row .features-section {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    background: whitesmoke;
-}
-
-.features-section .fa {
-    padding-right: 10px;
-    color: #16223B;
-}
-
-.summary h3 {
-    line-height: 15px;
-}
-
-#mapid 
-{ 
-    height: 550px; 
-    margin:10px 0px;
-    position: relative;
-    z-index: 10;
-}
-
-.charts {
-    background: whitesmoke;
-    padding-top: 30px;
-    padding-bottom: 30px;    
-}
-
-.data {
-    padding-top: 30px;
-    padding-bottom: 30px;    
-}
-
-.inline-section {
-    display: inline-block;
-}
-
-#populationIcon {
-    color: orange;
-}
-
-#propertiesIcon {
-    color: goldenrod;
-}
-
-#lifelinesIcon {
-    color: blue;
-}
-
-#agricultureIcon {
-    color: green;
-}
-
-#totalIcon {
-    color: red;
-}
-
-.footer {
-    background-color: #2B2B2B;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    text-align: center;
-}
-
 .footer h6 {
     color: gray;
 }
@@ -165,3 +79,20 @@ body {
   text-align: left;
   vertical-align: middle;
 }
+
+.btn-entry {
+    width: 85px;
+}
+
+.modal-header  {
+    background: #7F7F83;
+}
+
+.modal-header h4 {
+    color: whitesmoke;
+}
+
+label {
+    margin-bottom: 0px !important;
+}
+

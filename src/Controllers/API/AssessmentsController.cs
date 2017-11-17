@@ -63,7 +63,10 @@ namespace TYRISKANALYSIS.Controllers.API
                 TransportationLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.TransportationFacilities }),
                 CommunicationLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.CommunicationFacilities }),
                 ElectricalPowerLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.ElectricalFacilities }),
-                WaterFacilitiesLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.WaterFacilities })
+                WaterFacilitiesLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.WaterFacilities }),
+                CropsLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.Crops }),
+                FisheriesLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.Fisheries }),
+                LivestockLookup = datalookup.GetByCategory(new List<int> { CategoryConstants.Livestock })
             };
 
             return Ok(lookups);
@@ -73,7 +76,7 @@ namespace TYRISKANALYSIS.Controllers.API
         [HttpPost]
         public IActionResult SaveAssessment([FromBody] AssessmentModel assessment)
         {
-            if (assessment.Id == 0)
+            if (assessment.IsNew)
                 repository.Add(assessment);
             else
                 repository.Update(assessment);

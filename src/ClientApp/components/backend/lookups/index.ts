@@ -1,14 +1,21 @@
 import Vue from 'vue';
+import { eventBus } from "../../../boot";
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { PagedBaseVM } from "../../../core/pagedbasevm";
+import bootbox from 'bootbox';
 
 interface Category {
     id: number;
     name: string;
 }
 
-@Component
+@Component({
+    components: {
+        lookupForm: require('./form.vue.html')
+    }
+})
+
 export default class IndexComponent extends Vue {
 
     // Data Property
@@ -26,24 +33,54 @@ export default class IndexComponent extends Vue {
             }
             this.vm.onSearch();
         })
+
+        eventBus.$on('saveLookup',() => {
+            this.vm.onSearch();
+        })          
     }
 
     // Component Methods
     onNew() {
         var categoryId = this.vm.PagedParams.parameter1;
-        this.$router.push("/lookups/" + categoryId + "/0");
+        eventBus.$emit('lookupForm',0,categoryId);
+        //this.$router.push("/lookups/" + categoryId + "/0");
     }
 
     onUpdate(id: number) {
         var categoryId = this.vm.PagedParams.parameter1;
-        this.$router.push("/lookups/" + categoryId + "/" + id.toString());
+        eventBus.$emit('lookupForm',id,categoryId);
+        //this.$router.push("/lookups/" + categoryId + "/" + id.toString());
     }
 
     onDelete(id: number) {
-        this.vm.onDelete(id)
-            .then(data => {
-                this.vm.onSearch();
-            })
-            .catch(error => { });
+        bootbox.confirm({
+            title: "Delete Record",
+            message: "Are you sure you wish to delete this record?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: (result) => {
+                if (result) {
+                    this.vm.onDelete(id)
+                    .then(data => { 
+                        this.vm.onSearch();
+                    })
+                    .catch(error => { 
+                        bootbox.alert("Error occurs:" + error.data);
+                    }); 
+                }    
+            }
+        });       
     }
+
+    beforeDestroy() {
+        eventBus.$off('saveLookup');
+    }      
 }

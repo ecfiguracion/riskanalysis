@@ -23,7 +23,7 @@ export class PagedBaseVM {
     constructor(apiUrl: string,isUseToken: boolean) {
         this.IsUseToken = isUseToken;
         this.APIUrl = apiUrl;
-        this.PagedParams = { searchString: '', prevSearchString: '', pageNo: 1, pageSize: 10, pageCount: 0 };    
+        this.PagedParams = { searchString: '', prevSearchString: '', pageNo: 1, pageSize: 8, pageCount: 0 };    
         this.Model = [];
         this.ExtParams = [];
     }

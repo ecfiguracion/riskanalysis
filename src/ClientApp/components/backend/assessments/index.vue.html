@@ -1,15 +1,18 @@
 <template>
     <div>
-        <h1>Assessments</h1>
-        
+        <p class="h3 text-primary"><span class="fa fa-check-square-o"></span> Post Assessments</p>
+        <hr/>
         <form class="form-inline" @submit.prevent="">
             <div class="form-group">
                 <label for="searchString">Search:</label>
-                <input class="form-control" id="searchString" v-model="vm.PagedParams.searchString">
+                <input class="form-control input-sm" id="searchString" v-model="vm.PagedParams.searchString">
             </div>
-            <button class="btn btn-default" @click="vm.onSearch()">Search</button>
-            <button class="btn btn-default" @click="onNew()">New Assessment</button>
+            <div class="btn-group">
+                <button class="btn btn-default btn-warning btn-entry" @click="vm.onSearch()"><span class="fa fa-search"></span> Search</button>
+                <button class="btn btn-default btn-info btn-entry" @click="onNew()"><span class="fa fa-file-o"></span> New</button>
+            </div>
         </form> 
+        <hr/>
         <div>
             <table class="table table-condensed table-hover table-striped">
                 <thead>
@@ -21,11 +24,11 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in vm.Model">
-                        <td><router-link :to="`assessments/${item.id}`" exact>{{ item.typhoonName }}</router-link></td>
+                        <td><router-link :to="`assessments/${item.id}`" exact><span class="fa fa-file-o"></span> {{ item.typhoonName }}</router-link></td>
                         <td>{{ item.remarks }}</td>
                         <td>
-                            <a href="#" @click.prevent="onUpdate(item.id)">Edit</a> |
-                            <a href="#" @click.prevent="onDelete(item.id)">Delete</a> 
+                            <a href="#" @click.prevent="onUpdate(item.id)"><span class="fa fa-pencil"></span> Edit</a> |
+                            <a href="#" @click.prevent="onDelete(item.id)"><span class="fa fa-trash"></span>  Delete</a> 
                         </td>
                     </tr>
                 </tbody>

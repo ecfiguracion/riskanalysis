@@ -6,6 +6,13 @@ using TYRISKANALYSIS.Models.LookUp;
 
 namespace TYRISKANALYSIS.DataLayer.Model
 {
+    public class AssessmentListModel
+    {
+        public int Id { get; set; }
+        public string typhoonName { get; set; }
+        public string remarks { get; set; }
+    }
+
     public class AssessmentModel
     {
         public int Id { get; set; }
@@ -18,5 +25,16 @@ namespace TYRISKANALYSIS.DataLayer.Model
         public IEnumerable<AssessmentCommunicationModel> Communication { get; set; }
         public IEnumerable<AssessmentElectricalModel> ElectricalPower { get; set; }
         public IEnumerable<AssessmentWaterFacilitiesModel> WaterFacilities { get; set; }
+        public IEnumerable<AssessmentCropsModel> Crops { get; set; }
+        public IEnumerable<AssessmentFisheriesModel> Fisheries { get; set; }
+        public IEnumerable<AssessmentLivestockModel> Livestocks { get; set; }
+
+        public bool IsNew
+        {
+            get
+            {
+                return this.Id == 0;
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace TYRISKANALYSIS.DataLayer.Interfaces
     public interface IAssessmentRepository
     {
         AssessmentModel GetById(int id);
-        PagedResult<AssessmentModel> GetAll(PagedParams pagedParams);
+        PagedResult<AssessmentListModel> GetAll(PagedParams pagedParams);
         int GetTotalCount(string whereClause, string searchString);
         AssessmentModel Add(AssessmentModel assessment);
         AssessmentModel Update(AssessmentModel assessment);
