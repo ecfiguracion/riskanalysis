@@ -33,6 +33,15 @@ body {
     font-weight: 600;
 } 
 
+.navbar-form label {
+    color: whitesmoke;
+    margin-right: 4px;
+}
+
+.navbar-form select {
+    width: 150px !important;
+}
+
 .header {
     background: #4267B2;
     margin-top: 40px;

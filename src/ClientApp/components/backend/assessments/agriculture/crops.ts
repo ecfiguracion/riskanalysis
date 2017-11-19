@@ -1,4 +1,4 @@
-import Vue, { component } from 'vue';
+import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { eventBus } from "../../../../boot";
 import  LookUp  from "../../model/lookup";

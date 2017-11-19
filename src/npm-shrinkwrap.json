@@ -2,14 +2,29 @@
   "name": "TYRISKANALYSIS",
   "version": "0.0.0",
   "dependencies": {
+    "@types/bootbox": {
+      "version": "4.4.35",
+      "from": "@types/bootbox@latest",
+      "resolved": "https://registry.npmjs.org/@types/bootbox/-/bootbox-4.4.35.tgz"
+    },
+    "@types/chart.js": {
+      "version": "2.7.0",
+      "from": "https://registry.npmjs.org/@types/chart.js/-/chart.js-2.7.0.tgz",
+      "resolved": "https://registry.npmjs.org/@types/chart.js/-/chart.js-2.7.0.tgz"
+    },
     "@types/geojson": {
       "version": "1.0.6",
       "from": "@types/geojson@*",
       "resolved": "https://registry.npmjs.org/@types/geojson/-/geojson-1.0.6.tgz"
     },
+    "@types/jquery": {
+      "version": "3.2.16",
+      "from": "@types/jquery@*",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.16.tgz"
+    },
     "@types/leaflet": {
       "version": "1.2.2",
-      "from": "@types/leaflet@latest",
+      "from": "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.2.2.tgz",
       "resolved": "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.2.2.tgz"
     },
     "@types/webpack-env": {
@@ -204,6 +219,11 @@
       "from": "bn.js@>=4.1.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/bn.js/-/bn.js-4.11.8.tgz",
       "dev": true
+    },
+    "bootbox": {
+      "version": "4.4.0",
+      "from": "https://registry.npmjs.org/bootbox/-/bootbox-4.4.0.tgz",
+      "resolved": "https://registry.npmjs.org/bootbox/-/bootbox-4.4.0.tgz"
     },
     "bootstrap": {
       "version": "3.3.7",
@@ -1235,7 +1255,7 @@
     },
     "leaflet": {
       "version": "1.2.0",
-      "from": "leaflet@>=1.2.0 <2.0.0",
+      "from": "https://registry.npmjs.org/leaflet/-/leaflet-1.2.0.tgz",
       "resolved": "https://registry.npmjs.org/leaflet/-/leaflet-1.2.0.tgz"
     },
     "load-json-file": {
@@ -2452,7 +2472,8 @@
     "vue": {
       "version": "2.3.4",
       "from": "vue@>=2.2.2 <3.0.0",
-      "resolved": "https://registry.npmjs.org/vue/-/vue-2.3.4.tgz"
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.3.4.tgz",
+      "dev": true
     },
     "vue-class-component": {
       "version": "5.0.1",
@@ -2501,11 +2522,6 @@
       "from": "vue-template-es2015-compiler@>=1.2.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.2.tgz",
       "dev": true
-    },
-    "vue2-leaflet": {
-      "version": "0.0.56",
-      "from": "vue2-leaflet@latest",
-      "resolved": "https://registry.npmjs.org/vue2-leaflet/-/vue2-leaflet-0.0.56.tgz"
     },
     "watchpack": {
       "version": "1.4.0",

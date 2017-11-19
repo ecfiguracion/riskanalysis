@@ -1,4 +1,4 @@
-import Vue, { component } from 'vue';
+import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { FormBaseVM } from "../../../core/formbasevm";
@@ -215,7 +215,7 @@ export default class FormComponent extends Vue {
                     className: 'btn-danger'
                 }
             },
-            callback: (result) => {
+            callback: (result: boolean) => {
                 if (result) {
                     if (model.id == 0)
                     this.model.population = this.model.population.filter(x => x.rowId != model.rowId);
@@ -522,4 +522,15 @@ export default class FormComponent extends Vue {
 
     //#endregion      
     
+    beforeDestroy() {
+        eventBus.$off('savePopulationAssessment');
+        eventBus.$off('savePropertiesAssessment');
+        eventBus.$off('saveTransportationAssessment');
+        eventBus.$off('saveCommunicationAssessment');
+        eventBus.$off('saveElectricalPowerAssessment');
+        eventBus.$off('saveWaterFacilitiesAssessment');
+        eventBus.$off('saveCropsAssessment');
+        eventBus.$off('saveFisheriesAssessment');
+        eventBus.$off('saveLivestockAssessment');
+    }     
 }

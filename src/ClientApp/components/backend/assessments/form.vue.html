@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <div class="btn-group">
                             <button class="btn btn-success btn-entry" @click="onSave"><span class="fa fa-floppy-o"></span> Save</button>
-                            <button class="btn btn-warning btn-entry" @click="onCancel"><span class="fa fa-times"></span> Cancel</button>      
+                            <button class="btn btn-warning btn-entry" @click="onCancel"><span class="fa fa-times"></span> Close</button>      
                         </div>
                     </div>
                 </form> 
@@ -137,7 +137,7 @@
                                                     <span v-if="item.isCriticallyDamaged" class="fa fa-check"></span>
                                                     <span v-if="!item.isCriticallyDamaged" class="fa fa-square-o"></span>
                                                 </td>
-                                                <td> {{ item.estimatedCost }} </td>
+                                                <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                 <td>
                                                     <a href="#" @click.prevent="onEditProperties(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                     <a href="#" @click.prevent="onRemoveProperties(item)"><span class="fa fa-trash"></span> Delete</a>                                     
@@ -189,7 +189,7 @@
                                                         <span v-if="!item.isPassable" class="fa fa-square-o"></span>
                                                     </td>
                                                     <td> {{ item.lengthKM }} </td>                                    
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditTransportation(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveTransportation(item)"><span class="fa fa-trash"></span> Delete</a>                                     
@@ -234,7 +234,7 @@
                                                         <span v-if="!item.isOperational" class="fa fa-square-o"></span>
                                                     </td>
                                                     <td> {{ item.total }} </td>                                    
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditCommunication(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveCommunication(item)"><span class="fa fa-trash"></span> Delete</a>                                     
@@ -279,7 +279,7 @@
                                                         <span v-if="!item.isOperational" class="fa fa-square-o"></span>
                                                     </td>
                                                     <td> {{ item.total }} </td>                                    
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditElectricalPower(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveElectricalPower(item)"><span class="fa fa-trash"></span> Delete</a>                                     
@@ -326,7 +326,7 @@
                                                         <span v-if="!item.isOperational" class="fa fa-square-o"></span>
                                                     </td>
                                                     <td> {{ item.total }} </td>                                    
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditWaterFacilities(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveWaterFacilities(item)"><span class="fa fa-trash"></span> Delete</a>  
@@ -373,7 +373,7 @@
                                                     <td> {{ item.barangay.name }} </td>
                                                     <td> {{ item.areaDamaged }} </td>
                                                     <td> {{ item.metricTons }} </td>                                  
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditCrops(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveCrops(item)"><span class="fa fa-trash"></span> Delete</a>  
@@ -415,7 +415,7 @@
                                                     <td> {{ item.barangay.name }} </td>
                                                     <td> {{ item.areaDamaged }} </td>
                                                     <td> {{ item.metricTons }} </td>                                  
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditFisheries(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveFisheries(item)"><span class="fa fa-trash"></span> Delete</a>                                     
@@ -455,7 +455,7 @@
                                                     <td> <a href="#" @click.prevent="onEditLivestock(item)"><span class="fa fa-file-o"></span> {{ item.livestock.name }} </a> </td>
                                                     <td> {{ item.barangay.name }} </td>
                                                     <td> {{ item.total }} </td>                               
-                                                    <td> {{ item.estimatedCost }} </td>
+                                                    <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                     <td>
                                                         <a href="#" @click.prevent="onEditLivestock(item)"><span class="fa fa-pencil"></span> Edit |</a> 
                                                         <a href="#" @click.prevent="onRemoveLivestock(item)"><span class="fa fa-trash"></span> Delete</a>                                     
