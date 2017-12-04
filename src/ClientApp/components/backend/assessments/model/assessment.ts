@@ -13,8 +13,10 @@ class Properties {
     id: number = 0;
     structure: LookUp;
     barangay: LookUp;
-    isTotallyDamaged: boolean = false;
-    isCriticallyDamaged: boolean = false;
+    totallyDamaged: number = 0;
+    totallyDamagedUnit: string = '';
+    criticallyDamaged: number = 0;
+    criticallyDamagedUnit: string = '';
     estimatedCost: number;
     rowId: number = 0;
     isdeleted: boolean = false;
@@ -101,7 +103,7 @@ class Livestock {
 class Assessment {
     /* One to One Properties */
     id: number = 0;
-    typhoon: LookUp;
+    typhoon: number = 0;
     remarks: string;
 
     /* One to Many Properties */

@@ -1,0 +1,55 @@
+<template>
+    <div>
+        <div class="modal" v-bind:class="{ show: showForm, fade: !showForm }" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" @click="onCancel">&times;</button>
+                    <h4 class="modal-title"><span class="fa fa-pencil-square-o"></span> User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">                 
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" v-model="vm.Model.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" step="any" class="form-control" id="email" v-model="vm.Model.email">
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" step="any" class="form-control" id="username" v-model="vm.Model.username">
+                            </div>                            
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" step="any" class="form-control" id="password" v-model="vm.Model.password">
+                            </div>         
+                            <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="vm.Model.isActive"> Is Active?
+                            </label>
+                            </div>     
+                            <div class="checkbox">
+                            <label>
+                                <input type="checkbox" v-model="vm.Model.isActive"> Is System User?
+                            </label>
+                            </div>                                                                   
+                        </div>
+                    </div>               
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-entry" @click="onSave"><span class="fa fa-floppy-o"></span> Save</button>
+                            <button type="button" class="btn btn-danger btn-entry" @click="onCancel"><span class="fa fa-times"></span> Close</button>
+                        </div> 
+                    </div>         
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</template>
+
+<script src="./form.ts"></script>

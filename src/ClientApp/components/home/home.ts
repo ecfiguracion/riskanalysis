@@ -30,6 +30,8 @@ export default class HomeComponent extends Vue {
     mapLifelinesMarker: L.Marker[] = [];
     mapAgricultureMarker: L.Marker[] = [];
     selectedTyphoon: any = {};
+    selectedSection: number = 0;
+    selectedCategory: number = 0;
 
     markerPopulationSelected: boolean = true;
     markerPropertiesSelected: boolean = false;
@@ -355,6 +357,10 @@ export default class HomeComponent extends Vue {
             this.sections = response.data.sections;
             this.categories = response.data.categories;
 
+            if (this.sections) {
+                this.selectedSection = this.sections[0].id;
+            }
+
             if (this.typhoons)
             {
                 this.selectedTyphoon = this.typhoons[0];    
@@ -410,5 +416,10 @@ export default class HomeComponent extends Vue {
     @Watch('markerAgricultureSelected')
     markerAgricultureSelectedPropertyChange(value: boolean, oldValue: boolean) {
         this.createMapLayer();
-    }        
+    }     
+    
+    @Watch('selectedSection')
+    selectedSectionPropertyChange(value: number, oldValue: number) {
+        this.selectedCategory = 0;
+    }       
 }

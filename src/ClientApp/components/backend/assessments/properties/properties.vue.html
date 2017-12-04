@@ -10,7 +10,7 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-xs-4">
                 <div class="form-group">
                     <label for="entity">Entity</label>
                     <select id="entity" class="form-control input-sm" v-model="model.structure" required>
@@ -27,20 +27,28 @@
                         </option>
                     </select>
                 </div>  
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" v-model="model.isTotallyDamaged"> Is Totally Damaged?
-                  </label>
+                <div class="form-group">
+                  <label for="totallyDamaged">Totally Damaged</label>
+                  <input type="number" class="form-control input-sm" id="totallyDamaged" v-model="model.totallyDamaged" required>
                 </div>                
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" v-model="model.isCriticallyDamaged"> Is Critically Damaged?
-                  </label>
+                <div class="form-group">
+                  <label for="totallyDamagedUnit">Totally Damaged Unit</label>
+                  <input type="text" class="form-control input-sm" id="totallyDamagedUnit" v-model="model.totallyDamagedUnit" required>
+                </div>                        
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <label for="criticallyDamaged">Critically Damaged</label>
+                  <input type="number" class="form-control input-sm" id="criticallyDamaged" v-model="model.criticallyDamaged" required>
                 </div>                
+                <div class="form-group">
+                  <label for="criticallyDamagedUnit">Critically Damaged Unit</label>
+                  <input type="text" class="form-control input-sm" id="criticallyDamagedUnit" v-model="model.criticallyDamagedUnit" required>
+                </div>                                                              
                 <div class="form-group">
                     <label for="total">Estimated Cost</label>
                     <input type="number" class="form-control input-sm" id="total" v-model="model.estimatedCost" required>
-                </div>            
+                </div>    
               </div>
             </div>               
             <div class="modal-footer">

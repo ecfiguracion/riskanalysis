@@ -68,7 +68,7 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             var assessment = db.Query<AssessmentModel, DataLookUpModel, AssessmentModel>(
                 sql, (data, typhoon) =>
                  {
-                     data.Typhoon = typhoon;
+                     data.Typhoon = typhoon.Id;
                      return data;
                  },
                 new { id }).Single();
@@ -96,8 +96,8 @@ namespace TYRISKANALYSIS.DataLayer.Repository
 
             #region Properties
 
-            sql = @"SELECT ap.Id, ap.IsTotallyDamaged, ap.IsCriticallyDamaged, ap.EstimatedCost,
-	                    l.id, l.Name, b.id, b.Name
+            sql = @"SELECT ap.Id, ap.TotallyDamaged,ap.TotallyDamagedUnit, ap.CriticallyDamaged, ap.CriticallyDamagedUnit,
+                        ap.EstimatedCost, l.id, l.Name, b.id, b.Name
                     FROM AssessmentProperties ap
                     INNER JOIN LookUp l ON ap.StructureId = l.Id
                     INNER JOIN Barangay b ON ap.BarangayId = b.Id
@@ -276,11 +276,11 @@ namespace TYRISKANALYSIS.DataLayer.Repository
         public AssessmentModel Add(AssessmentModel assessment)
         {
             var sql = @"INSERT INTO assessment(typhoonid,remarks)
-                        VALUES (@Id,@Remarks)
+                        VALUES (@Typhoon,@Remarks)
                         SELECT CAST(SCOPE_IDENTITY() AS int)";
-            var id = db.Query<int>(sql,new
+            var id = db.Query<int>(sql, new
             {
-                assessment.Typhoon.Id,
+                assessment.Typhoon,
                 assessment.Remarks
             }).Single();
             assessment.Id = id;
@@ -304,8 +304,7 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                             typhoonid = @Typhoon,
                             remarks = @Remarks
                         WHERE id = @id";
-            var typhoon = assessment.Typhoon.Id;
-            db.Execute(sql, new { typhoon, assessment.Remarks, assessment.Id } );
+            db.Execute(sql, new { assessment.Typhoon, assessment.Remarks, assessment.Id } );
 
             this.SavePopulationAssessment(assessment);
             this.SavePropertiesAssessment(assessment);
@@ -368,12 +367,12 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                 var barangayId = item.barangay.Id;
                 if (item.id == 0)
                 {
-                    sql = @"INSERT INTO AssessmentProperties(AssessmentId, StructureId, BarangayId, IsTotallyDamaged, IsCriticallyDamaged, EstimatedCost) 
-                            VALUES (@Id, @StructureId, @BarangayId, @IsTotallyDamaged, @IsCriticallyDamaged, @EstimatedCost)
+                    sql = @"INSERT INTO AssessmentProperties(AssessmentId, StructureId, BarangayId, TotallyDamaged,TotallyDamagedUnit, CriticallyDamaged,CriticallyDamagedUnit,EstimatedCost) 
+                            VALUES (@Id, @StructureId, @BarangayId, @TotallyDamaged,@TotallyDamagedUnit, @CriticallyDamaged,@CriticallyDamagedUnit, @EstimatedCost)
                             SELECT CAST(SCOPE_IDENTITY() AS int)";
                     var id = db.Query<int>(sql, new {
-                                assessment.Id, structureId, barangayId, item.isTotallyDamaged,
-                                item.isCriticallyDamaged, item.estimatedCost
+                                assessment.Id, structureId, barangayId, item.totallyDamaged,item.totallyDamagedUnit,
+                                item.criticallyDamaged,item.criticallyDamagedUnit, item.estimatedCost
                             }).Single();
                     item.id = id;
                 }
@@ -384,12 +383,14 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         sql = @"UPDATE AssessmentProperties SET
                                     StructureId = @StructureId, 
                                     BarangayId = @BarangayId,
-                                    IsTotallyDamaged = @IsTotallyDamaged,
-                                    IsCriticallyDamaged = @IsCriticallyDamaged,                                    
+                                    TotallyDamaged = @TotallyDamaged,
+                                    TotallyDamagedUnit = @TotallyDamagedUnit,    
+                                    CriticallyDamaged = @CriticallyDamaged,                                    
+                                    CriticallyDamagedUnit = @CriticallyDamagedUnit,                                    
                                     EstimatedCost = @EstimatedCost
                             WHERE Id = @Id";
                         db.Execute(sql, new {
-                            structureId,barangayId,item.isTotallyDamaged,item.isCriticallyDamaged,item.estimatedCost,item.id
+                            structureId,barangayId,item.totallyDamaged,item.totallyDamagedUnit,item.criticallyDamaged,item.criticallyDamagedUnit,item.estimatedCost,item.id
                         });
                     }
                     else

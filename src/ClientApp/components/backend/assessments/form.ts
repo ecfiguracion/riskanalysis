@@ -49,11 +49,8 @@ export default class FormComponent extends Vue {
     // Life Cycle Hook
     mounted() {
         var id = this.$route.params.id;
-        axios.get("api/assessments/" + id)
-            .then(response => {
-                this.model = response.data;
-            })
 
+        // Load the data lookup first
         axios.get("api/assessments/datalookups")
             .then(response => {
 
@@ -68,6 +65,13 @@ export default class FormComponent extends Vue {
                 var cropsLookup = response.data.cropsLookup;
                 var fisheriesLookup = response.data.fisheriesLookup;
                 var livestockLookup = response.data.livestockLookup;
+
+                // and then load the model 
+                // this is to prevent out of sync to controls
+                axios.get("api/assessments/" + id)
+                .then(response => {
+                    this.model = response.data;
+                })
 
                 eventBus.$emit('setPopulationFormLookup',barangaysLookUp,populationLookUp);
                 eventBus.$emit('setPropertiesFormLookup',barangaysLookUp,structuresLookUp);
@@ -521,6 +525,17 @@ export default class FormComponent extends Vue {
     }    
 
     //#endregion      
+
+    formatNumber(value: number): string {
+        var result = "";
+        if (value > 1000000)
+            result = Math.round(value / 1000000).toString() + "M";
+        else if (value > 1000)
+            result = Math.round(value / 1000).toString() + "K";
+        else
+            result = value.toString();
+        return result;
+    }    
     
     beforeDestroy() {
         eventBus.$off('savePopulationAssessment');

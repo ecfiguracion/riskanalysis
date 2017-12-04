@@ -32,10 +32,11 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         inner join Typhoon t on a.TyphoonId = t.Id
                         order by t.name;
 
-                        select id, name from section;
+                        select code as id, name from section;
 
-                        select id,name,sectionid as linkid
-                        from Category";
+                        select category.code id,category.name,section.code as linkid
+                        from Category
+                        inner join Section ON Category.SectionId = Section.Id";
             using (var multi = this.db.QueryMultiple(sql)) {
                 lookup.Typhoons = multi.Read<DataLookUpModel>().ToList();
                 lookup.Sections = multi.Read<DataLookUpModel>().ToList();
@@ -240,6 +241,23 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             #endregion
 
             return dataModel;
+        }
+
+        public RiskTrendsModel GetTrends(int section, int category, int support)
+        {
+            var sql = @"SELECT a.Id, a.Remarks, t.Id, t.Name
+                        FROM Assessment a
+                        INNER JOIN Typhoon t ON a.TyphoonId = t.id
+                        WHERE a.id = @id";
+            var assessment = db.Query<RiskTrendsModel, DataLookUpModel, RiskTrendsModel>(
+                sql, (data, typhoon) =>
+                {
+                    //data.Typhoon = typhoon;
+                    return data;
+                },
+                new { section, category, support }).Single();
+
+            return assessment;
         }
 
         public IEnumerable<ChartDataModel> GetCharts(int id)

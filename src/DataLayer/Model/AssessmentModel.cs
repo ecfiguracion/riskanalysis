@@ -16,7 +16,7 @@ namespace TYRISKANALYSIS.DataLayer.Model
     public class AssessmentModel
     {
         public int Id { get; set; }
-        public DataLookUpModel Typhoon { get; set; }
+        public int Typhoon { get; set; }
         public string Remarks { get; set; }
 
         public IEnumerable<AssessmentPopulationModel> Population { get; set; }

@@ -26,6 +26,12 @@ namespace TYRISKANALYSIS.Controllers.API
             return Ok(repository.GetLookUps());
         }
 
+        [HttpGet("risktrends")]
+        public IActionResult GetDataLookups(int section, int category, int support)
+        {
+            return Ok(repository.GetTrends(section,category,support));
+        }
+
         // GET api/home/{id}
         [HttpGet("{id}")]
         public IActionResult GetTyphoons(int id)

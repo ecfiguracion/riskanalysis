@@ -12,6 +12,7 @@ namespace TYRISKANALYSIS.DataLayer.Interfaces
     {
         HomeLookupModel GetLookUps();
         RiskMapsModel GetRiskMaps(int id);
+        RiskTrendsModel GetTrends(int section, int category, int support);
         IEnumerable<ChartDataModel> GetCharts(int id);
         IEnumerable<PopulationCommonModel> GetDisplacedEvacuated(int id);
         IEnumerable<PopulationCommonModel> GetCasualties(int id);

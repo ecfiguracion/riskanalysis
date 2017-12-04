@@ -46,8 +46,9 @@
                                 <div class="col-md-6">  
                                     <div class="form-group">
                                         <label for="typhoon">Typhoon</label>
+                                        <!-- <input type="text" class="form-control" id="typhoon" v-model="model.typhoon"></textarea>                                         -->
                                         <select id="typhoon" class="form-control input-sm" v-model="model.typhoon" required>
-                                            <option v-for="item in typhoonsLookUp" v-bind:value="item">
+                                            <option v-for="item in typhoonsLookUp" v-bind:value="item.id">
                                                 {{ item.name }}
                                             </option>
                                         </select>
@@ -116,8 +117,10 @@
                                         <tr>
                                             <th>Structures</th>
                                             <th>Barangay</th>
-                                            <th>Is Totally Damaged?</th>
-                                            <th>Is Critically Damaged?</th>
+                                            <th>Totally Damaged</th>
+                                            <th>Unit</th>
+                                            <th>Critically Damaged</th>
+                                            <th>Unit</th>                                            
                                             <th>Estimated Cost</th>
                                             <th></th>
                                         </tr>
@@ -129,14 +132,10 @@
                                                     <a href="#" @click.prevent="onEditProperties(item)"><span class="fa fa-file-o"></span> {{ item.structure.name }}  </a>   
                                                 </td>
                                                 <td> {{ item.barangay.name }} </td>
-                                                <td class="text-center"> 
-                                                    <span v-if="item.isTotallyDamaged" class="fa fa-check"></span> 
-                                                    <span v-if="!item.isTotallyDamaged" class="fa fa-square-o"></span>
-                                                </td>
-                                                <td class="text-center"> 
-                                                    <span v-if="item.isCriticallyDamaged" class="fa fa-check"></span>
-                                                    <span v-if="!item.isCriticallyDamaged" class="fa fa-square-o"></span>
-                                                </td>
+                                                <td class="text-center"> {{ item.totallyDamaged }} </td>                                                
+                                                <td class="text-center"> {{ item.totallyDamagedUnit }} </td>                                                                                                
+                                                <td class="text-center"> {{ item.criticallyDamaged }} </td> 
+                                                <td class="text-center"> {{ item.criticallyDamagedUnit }} </td>                                                
                                                 <td> {{ formatNumber(item.estimatedCost) }} </td>
                                                 <td>
                                                     <a href="#" @click.prevent="onEditProperties(item)"><span class="fa fa-pencil"></span> Edit |</a> 

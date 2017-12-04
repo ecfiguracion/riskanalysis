@@ -12,12 +12,25 @@ Vue.filter('formatDate', function (value: any) {
     }
 });
 
+Vue.filter('formatNumber', function (value: number) {
+    var result = "";
+    if (value > 1000000)
+        result = Math.round(value / 1000000).toString() + "M";
+    else if (value > 1000)
+        result = Math.round(value / 1000).toString() + "K";
+    else
+        result = value.toString();
+    return result;
+});
+
 const routes = [
     { path: '/', component: require('./components/home/home.vue.html') },
     { path: '/login', component: require('./components/login/login.vue.html') },
     {
         path: '/backend', component: require('./components/backend/main/main.vue.html'),
         children: [
+            { path: '/useraccounts', component: require('./components/backend/useraccounts/index.vue.html') },
+            { path: '/useraccounts/:id', component: require('./components/backend/useraccounts/form.vue.html') },            
             { path: '/assessments', component: require('./components/backend/assessments/index.vue.html') },
             { path: '/assessments/:id', component: require('./components/backend/assessments/form.vue.html') },
             { path: '/barangays', component: require('./components/backend/barangays/index.vue.html') },
