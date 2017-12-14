@@ -245,19 +245,38 @@ namespace TYRISKANALYSIS.DataLayer.Repository
 
         public RiskTrendsModel GetTrends(int section, int category, int support)
         {
-            var sql = @"SELECT a.Id, a.Remarks, t.Id, t.Name
-                        FROM Assessment a
-                        INNER JOIN Typhoon t ON a.TyphoonId = t.id
-                        WHERE a.id = @id";
-            var assessment = db.Query<RiskTrendsModel, DataLookUpModel, RiskTrendsModel>(
-                sql, (data, typhoon) =>
-                {
-                    //data.Typhoon = typhoon;
-                    return data;
-                },
-                new { section, category, support }).Single();
+            var parameters = new DynamicParameters();
+            parameters.Add("sectionCode", section);
+            parameters.Add("categoryCode", category);
+            parameters.Add("supportPercentage", support);
+            parameters.Add("resetData", true);
+            parameters.Add("id", DbType.Int32, direction: ParameterDirection.Output);
+            db.Query<int>("GenerateTrends", parameters, commandType: CommandType.StoredProcedure);
 
-            return assessment;
+            int id = parameters.Get<int>("id");
+
+            var risktrends = new RiskTrendsModel();
+
+            // Get the supports
+            var sql = @"SELECT levelid,barangay,supportpercentage 
+                        FROM RiskTrendsItems
+                        WHERE RiskTrendsId = @id
+                        ORDER BY LevelId";
+            risktrends.RiskTrendsSupport = db.Query<RiskTrendsSupportModel>(sql, new { id });
+
+            // Get the rules
+            sql = @"SELECT id, RuleXBarangay, RuleYBarangay, SupportX, SupportY, Support, Confidence, Lift
+                        FROM RiskTrendsRules
+                        WHERE RiskTrendsId = @id";
+            risktrends.RiskTrendsRules = db.Query<RiskTrendsRulesModel>(sql, new { id });
+
+            if (risktrends.RiskTrendsRules.Any())
+            {
+                risktrends.supportStart = risktrends.RiskTrendsSupport.Min(x => x.LevelId);
+                risktrends.supportEnd = risktrends.RiskTrendsSupport.Max(x => x.LevelId);
+            }
+
+            return risktrends;
         }
 
         public IEnumerable<ChartDataModel> GetCharts(int id)

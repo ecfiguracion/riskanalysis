@@ -90,4 +90,28 @@ class HomeData {
     livestocks: Livestock[] = [];
 }
 
-export { RiskMapSummary, RiskMaps, HomeData }
+class RiskTrendsSupport {
+    levelId: number;
+    barangay: string;
+    supportPercentage: number;
+}
+
+class RiskTrendsRules {
+    id: number;
+    ruleXBarangay: string;
+    ruleYBarangay: string;
+    supportX: number;
+    supportY: number;
+    support: number;
+    confidence: number;
+    lift: number;
+}
+
+class RiskTrends {
+    riskTrendsSupport: RiskTrendsSupport[] = [];
+    riskTrendsRules: RiskTrendsRules[] = [];
+    supportStart: number;
+    supportEnd: number
+}
+
+export { RiskMapSummary, RiskMaps, HomeData, RiskTrends, RiskTrendsSupport }

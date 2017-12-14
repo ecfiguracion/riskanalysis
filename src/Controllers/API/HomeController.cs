@@ -27,7 +27,7 @@ namespace TYRISKANALYSIS.Controllers.API
         }
 
         [HttpGet("risktrends")]
-        public IActionResult GetDataLookups(int section, int category, int support)
+        public IActionResult GetRiskTrends(int section, int category, int support)
         {
             return Ok(repository.GetTrends(section,category,support));
         }

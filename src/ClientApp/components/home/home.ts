@@ -5,7 +5,7 @@ import L from 'leaflet';
 import Chart from 'chart.js';
 import LookUp from '../backend/model/lookup';
 import LookUpLink from '../backend/model/lookuplink';
-import { RiskMapSummary, RiskMaps, HomeData } from './model/homemodel';
+import { RiskMapSummary, RiskMaps, HomeData, RiskTrends, RiskTrendsSupport } from './model/homemodel';
 import { createDecorator } from 'vue-class-component/lib/util';
 const marker_icon_population = require('../images/marker-icon-population.png');
 const marker_icon_properties = require('../images/marker-icon-properties.png');
@@ -22,6 +22,7 @@ export default class HomeComponent extends Vue {
     categories: LookUpLink[] = [];
 
     /* Home Models */
+    riskTrends: RiskTrends = new RiskTrends();
     model: HomeData = new HomeData();
 
     map: L.Map;
@@ -32,6 +33,8 @@ export default class HomeComponent extends Vue {
     selectedTyphoon: any = {};
     selectedSection: number = 0;
     selectedCategory: number = 0;
+    supportPercentage: number = 50;
+    showSteps: boolean = false;
 
     markerPopulationSelected: boolean = true;
     markerPropertiesSelected: boolean = false;
@@ -347,6 +350,10 @@ export default class HomeComponent extends Vue {
         return result;
     }
 
+    getRiskTrendsSupport(level: number): RiskTrendsSupport[] {
+        return this.riskTrends.riskTrendsSupport.filter(x => x.levelId == level);
+    }
+
     mounted() {
 
         this.createMap();
@@ -422,4 +429,24 @@ export default class HomeComponent extends Vue {
     selectedSectionPropertyChange(value: number, oldValue: number) {
         this.selectedCategory = 0;
     }       
+
+    // Events
+    onGenerateTrends() {
+        axios.get("api/home/risktrends", {
+            params: {
+                section: this.selectedSection,
+                category: this.selectedCategory,
+                support: this.supportPercentage
+            }
+        })
+            .then(response => {
+                this.riskTrends = response.data;
+                console.log(response.data);
+                //if (!this.riskTrends.rules) {
+                //    //'Support percentage of ' + CAST(@SupportPercentage AS NVARCHAR) + '% is too low to generate trends.'
+                //}
+            });
+    }   
+
+
 }

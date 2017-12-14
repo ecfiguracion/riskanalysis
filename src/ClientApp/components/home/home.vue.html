@@ -320,7 +320,7 @@
                                         <th>Barangay</th>
                                         <th class="text-center">Totally Damaged</th>
                                         <th class="text-center">Critically Damaged</th>
-                                        <th class="text-center">Estimated Cost</th>
+                                        <th class="text-center col-md-2">Estimated Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -349,7 +349,7 @@
                                         <th class="text-center">Passable</th>
                                         <th class="text-center">Not Passable</th>
                                         <th class="text-center">Length(km)</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>                                
                                 </thead> 
                                 <tbody>
@@ -381,7 +381,7 @@
                                         <th class="text-center">Operational</th>
                                         <th class="text-center">Non Operational</th>
                                         <th class="text-center">Number</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -412,7 +412,7 @@
                                         <th class="text-center">Operational</th>
                                         <th class="text-center">Non Operational</th>
                                         <th class="text-center">Number</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -443,7 +443,7 @@
                                         <th class="text-center">Operational</th>
                                         <th class="text-center">Non Operational</th>
                                         <th class="text-center">Number</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -474,7 +474,7 @@
                                         <th>Location</th>
                                         <th class="text-center">Areas Damaged/Losses<br>(No. of Hectares)</th>
                                         <th class="text-center">Metric Tons</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -497,7 +497,7 @@
                                         <th>Location</th>
                                         <th class="text-center">Areas Damaged/Losses<br>(No. of Hectares)</th>
                                         <th class="text-center">Metric Tons</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -519,7 +519,7 @@
                                         <th>Animals</th>
                                         <th>Barangay</th>
                                         <th class="text-center">No. of Heads</th>
-                                        <th class="text-center">Estimated Cost</th> 
+                                        <th class="text-center col-md-2">Estimated Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -544,82 +544,106 @@
                     <div class="section">
                         <span class="fa fa-line-chart fa-2x"></span>
                         <h3 class="inline-section"><strong>RISK TRENDS</strong></h3>
-                    </div>                        
-                    <!--Filter and Info-->                                     
-                    <div class="row">            
+                    </div>
+                    <!--Filter and Info-->
+
+                    <div class="row">
                         <div class="form">
                             <div class="col-xs-3">
-                                <div class="form-group">                                    
-                                    <label for="section">Section</label>  
+                                <div class="form-group">
+                                    <label for="section">Section</label>
                                     <select id="section" class="form-control" v-model="selectedSection" required>
                                         <option v-for="item in sections" v-bind:value="item.id">
                                             {{ item.name }}
                                         </option>
-                                    </select>                                                                           
-                                </div> 
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="category">Category</label> 
+                                    <label for="category">Category</label>
                                     <select id="category" class="form-control" v-model="selectedCategory">
                                         <option v-for="item in categories" v-bind:value="item.id" v-if="item.linkId == selectedSection">
                                             {{ item.name }}
                                         </option>
-                                    </select>                                                                          
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-2">
                                 <div class="form-group">
                                     <label for="support">Support %</label>
-                                    <input type="number" class="form-control" id="support">
-                                </div>      
-                            </div>    
+                                    <input type="number" class="form-control" id="support" v-model="supportPercentage">
+                                </div>
+                            </div>
+
                             <div class="col-xs-2">
-                                <button type="button" class="btn btn-success btn-generate"><span class="fa fa-play-circle"></span> Generate</button>
-                            </div>                   
-                        </div>
-                    </div>                    
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h4><strong>Results</strong></h4>                            
-                            <hr/>
-                            <br>
+                                <button type="button" class="btn btn-success btn-generate" @click="onGenerateTrends"><span class="fa fa-play-circle"></span> Generate</button>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-xs-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" v-model="showSteps">View Steps
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" v-for="level of riskTrends.supportEnd" v-if="showSteps">
                         <div class="col-md-12">
-                            <table class="table table-striped table-condensed table-bordered">
+                            <h4><strong>Step</strong> <span class="badge">{{ level }}</span></h4>
+                            <hr />
+                            <table class="table table-condensed table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Association Rules</th>
+                                        <th>Barangay</th>
+                                        <th class="text-center col-md-3">Support</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in getRiskTrendsSupport(level)">
+                                        <td>{{ item.barangay }} {{ $index }}</td>
+                                        <td class="text-center">{{ item.supportPercentage }}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4><strong>Association Rules</strong></h4>
+                            <hr />
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Barangay(s) X</th>
+                                        <th>Barangay(s) Y</th>
                                         <th class="text-center">Support</th>
                                         <th class="text-center">Confidence</th>
                                         <th class="text-center">Lift</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Buhatan, Alimsog</td>
-                                        <td class="text-center">1%</td>
-                                        <td class="text-center">20%</td>                                    
-                                        <td class="text-center">1</td>                                                                        
+                                    <tr v-for="item in riskTrends.riskTrendsRules">
+                                        <td>{{ item.ruleXBarangay }}</td>
+                                        <td>{{ item.ruleYBarangay }}</td>
+                                        <td class="text-center">{{ item.support }}%</td>
+                                        <td class="text-center">{{ item.confidence }}%</td>
+                                        <td class="text-center">{{ item.lift }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Buhatan, Bikal</td>
-                                        <td class="text-center">0.1%</td>
-                                        <td class="text-center">0.1%</td>                                    
-                                        <td class="text-center">0.3</td>                                                                        
-                                    </tr>                                    
-                                    <tr>
-                                        <td>Buhatan, Salvacion</td>
-                                        <td class="text-center">0.1%</td>
-                                        <td class="text-center">1%</td>                                    
-                                        <td class="text-center">2.6%</td>                                                                        
-                                    </tr>                                                                        
-                                </tbody>                                            
-                            </table>  
+                                </tbody>
+                            </table>
                         </div>
-                    </div>                                 
+                    </div>
                 </div>
             </div>
         </div>

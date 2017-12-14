@@ -27,7 +27,6 @@ export default class FormComponent extends Vue {
 
     // Component Methods
     onSave() {
-        console.log("save is clicked");
         this.vm.save()      
         .then(data => { 
             //this.$router.go(-1);
