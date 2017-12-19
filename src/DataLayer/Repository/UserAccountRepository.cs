@@ -42,9 +42,9 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             pagedParams.SetPageNo();
             var pageNo = (pagedParams.pageNo - 1) * pagedParams.pageSize;
             var searchString = "%" + pagedParams.searchString + "%";
-            var barangays = db.Query<UserAccount>(sql, new { searchString, pageNo, pagedParams.pageSize });
+            var useraccounts = db.Query<UserAccount>(sql, new { searchString, pageNo, pagedParams.pageSize });
 
-            return new PagedResult<UserAccount>(barangays, pagedParams, this.GetTotalCount(sqlWhereClause,searchString));
+            return new PagedResult<UserAccount>(useraccounts, pagedParams, this.GetTotalCount(sqlWhereClause,searchString));
         }
 
         public int GetTotalCount(string whereClause,string searchString)
@@ -60,17 +60,17 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             return db.Query<UserAccount>(sql, new { id }).SingleOrDefault();
         }
 
-        public UserAccount Add(UserAccount barangay)
+        public UserAccount Add(UserAccount useraccount)
         {
             var sql = @"INSERT INTO UserAccount(name,email,username,password,token,isactive)
                     VALUES (@Name,@Email,@Username,@Password,@Token,@IsActive)
                     SELECT CAST(SCOPE_IDENTITY() AS int)";
-            var id = db.Query<int>(sql, barangay).Single();
-            barangay.Id = id;
-            return barangay;
+            var id = db.Query<int>(sql, useraccount).Single();
+            useraccount.Id = id;
+            return useraccount;
         }
 
-        public UserAccount Update(UserAccount barangay)
+        public UserAccount Update(UserAccount useraccount)
         {            
             var sql = @"UPDATE UserAccount SET 
                         name = @Name,
@@ -79,8 +79,8 @@ namespace TYRISKANALYSIS.DataLayer.Repository
                         password = @Password,
                         isactive = @IsActive
                     WHERE id = @id";
-            db.Execute(sql, barangay);
-            return barangay;
+            db.Execute(sql, useraccount);
+            return useraccount;
         }
 
         public void Remove(int id)
@@ -88,6 +88,23 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             var sql = @"DELETE FROM useraccount
                         WHERE id = @id";
             db.Query<UserAccount>(sql, new { id });
+        }
+
+        public string Authenticate(Authenticate authenticate)
+        {
+            var sql = @"SELECT id FROM useraccount 
+                        WHERE username = @username AND password = @password";
+
+            var id = db.Query<int>(sql, new { authenticate.Username, authenticate.Password }).SingleOrDefault();
+            var token = string.Empty;
+            if (id > 0)
+            {
+                token = Guid.NewGuid().ToString();
+                sql = "UPDATE useraccount SET token = @token WHERE id = @id";
+                db.Execute(sql, new { token, id });
+            }
+
+            return token;
         }
 
         #region Miscellaneous

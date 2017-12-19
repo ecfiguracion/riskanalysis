@@ -15,4 +15,16 @@ namespace TYRISKANALYSIS.DataLayer
         public string Token { get; set; }
         public bool IsActive { get; set; }
     }
+
+    public class Authenticate
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class Authenticated
+    {
+        public string Token { get; set; }
+    }
+
 }

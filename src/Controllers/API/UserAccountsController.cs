@@ -58,5 +58,13 @@ namespace TYRISKANALYSIS.Controllers.API
             repository.Remove(id);
             return Ok();
         }
+
+        // POST api/useraccounts
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] Authenticate authenticate)
+        {
+            var token = repository.Authenticate(authenticate);
+            return Ok(token);
+        }
     }
 }

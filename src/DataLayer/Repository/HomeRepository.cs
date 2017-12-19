@@ -54,39 +54,39 @@ namespace TYRISKANALYSIS.DataLayer.Repository
 
             var sectionsSummary = new SectionSummaryModel();
             var total = 0;
-            var sql = @"select sum(total) as populationTotal
+            var sql = @"select coalesce(sum(total),0) as populationTotal
                     from Assessment a
                     inner join AssessmentPopulation ap ON a.Id = ap.AssessmentId
                     where a.TyphoonId = @id;
-                    select sum(ap.EstimatedCost) as propertiesTotal
+                    select coalesce(sum(ap.EstimatedCost),0) as propertiesTotal
                     from Assessment a
                     inner join AssessmentProperties ap ON a.Id = ap.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(at.EstimatedCost) transportationTotal
+                    select coalesce(sum(at.EstimatedCost),0) transportationTotal
                     from Assessment a
                     inner join AssessmentTransportation at ON a.Id = at.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(ac.EstimatedCost) communicationTotal
+                    select coalesce(sum(ac.EstimatedCost),0) communicationTotal
                     from Assessment a
                     inner join AssessmentCommunication ac ON a.Id = ac.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(ae.EstimatedCost) electricalTotal
+                    select coalesce(sum(ae.EstimatedCost),0) electricalTotal
                     from Assessment a
                     inner join AssessmentElectricalPower ae ON a.Id = ae.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(aw.EstimatedCost) waterTotal
+                    select coalesce(sum(aw.EstimatedCost),0) waterTotal
                     from Assessment a
                     inner join AssessmentWaterFacilities aw ON a.Id = aw.AssessmentId
                     where a.TyphoonId = @Id;                 
-                    select sum(ac.EstimatedCost) cropsTotal
+                    select coalesce(sum(ac.EstimatedCost),0) cropsTotal
                     from Assessment a
                     inner join AssessmentCrops ac ON a.Id = ac.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(af.EstimatedCost) fisheriesTotal
+                    select coalesce(sum(af.EstimatedCost),0) fisheriesTotal
                     from Assessment a
                     inner join AssessmentFisheries af ON a.Id = af.AssessmentId
                     where a.TyphoonId = @Id;
-                    select sum(al.EstimatedCost) livestockTotal
+                    select coalesce(sum(al.EstimatedCost),0) livestockTotal
                     from Assessment a
                     inner join AssessmentLivestock al ON a.Id = al.AssessmentId
                     where a.TyphoonId = @Id";

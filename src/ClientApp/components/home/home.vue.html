@@ -40,6 +40,11 @@
                                             <h5><span class="fa fa-line-chart fa"></span> Trends</h5>
                                         </router-link>
                                     </li>
+                                    <li>
+                                        <router-link to="/login">
+                                            <h5><span class="fa fa-sign-in fa"></span> Login</h5>
+                                        </router-link>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -604,7 +609,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="item in getRiskTrendsSupport(level)">
-                                        <td>{{ item.barangay }} {{ $index }}</td>
+                                        <td>{{ item.barangay }}</td>
                                         <td class="text-center">{{ item.supportPercentage }}%</td>
                                     </tr>
                                 </tbody>

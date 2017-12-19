@@ -13,6 +13,7 @@ namespace TYRISKANALYSIS.DataLayer.Interfaces
         int GetTotalCount(string whereClause, string searchString);
         UserAccount Add(UserAccount barangay);
         UserAccount Update(UserAccount barangay);
+        string Authenticate(Authenticate authenticate);
         void Remove(int id);
     }
 }
