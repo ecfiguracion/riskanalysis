@@ -60,6 +60,13 @@ namespace TYRISKANALYSIS.DataLayer.Repository
             return db.Query<UserAccount>(sql, new { id }).SingleOrDefault();
         }
 
+        public bool AuthenticateToken(string token)
+        {
+            var sql = @"SELECT id WHERE token = @token";
+            var id = db.Query<int>(sql, new { token }).SingleOrDefault();
+            return id > 0;
+        }
+
         public UserAccount Add(UserAccount useraccount)
         {
             var sql = @"INSERT INTO UserAccount(name,email,username,password,token,isactive)

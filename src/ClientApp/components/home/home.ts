@@ -427,7 +427,15 @@ export default class HomeComponent extends Vue {
     
     @Watch('selectedSection')
     selectedSectionPropertyChange(value: number, oldValue: number) {
-        this.selectedCategory = 0;
+        //this.selectedCategory = 0;
+        if (this.categories) {
+            for (var item of this.categories) {
+                if (item.linkId == this.selectedSection) {
+                    this.selectedCategory = item.id;
+                    break;
+                }
+            }
+        }
     }       
 
     // Events
@@ -441,7 +449,7 @@ export default class HomeComponent extends Vue {
         })
             .then(response => {
                 this.riskTrends = response.data;
-                console.log(response.data);
+                // console.log(response.data);
                 //if (!this.riskTrends.rules) {
                 //    //'Support percentage of ' + CAST(@SupportPercentage AS NVARCHAR) + '% is too low to generate trends.'
                 //}
