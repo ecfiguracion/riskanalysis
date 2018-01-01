@@ -7,6 +7,7 @@ import { Assessment, Population, Properties, Transportation, Communication, Elec
     WaterFacilities, Crops, Fisheries, Livestock } from "./model/assessment";
 import { eventBus } from "../../../boot";
 import bootbox from 'bootbox';
+import { store } from "../../../boot";
 
 @Component({
     components: {
@@ -51,7 +52,9 @@ export default class FormComponent extends Vue {
         var id = this.$route.params.id;
 
         // Load the data lookup first
-        axios.get("api/assessments/datalookups")
+        axios.get("api/assessments/datalookups", {
+                headers: { tokenAuthorization: store.getters.token }
+            })
             .then(response => {
 
                 this.typhoonsLookUp = response.data.typhoons;
@@ -68,7 +71,9 @@ export default class FormComponent extends Vue {
 
                 // and then load the model 
                 // this is to prevent out of sync to controls
-                axios.get("api/assessments/" + id)
+                axios.get("api/assessments/" + id, {
+                    headers: { tokenAuthorization: store.getters.token }
+                })
                 .then(response => {
                     this.model = response.data;
                 })
@@ -178,7 +183,9 @@ export default class FormComponent extends Vue {
 
     // Component Methods
     onSave() {
-        axios.post("api/assessments", this.model)
+        axios.post("api/assessments", this.model, {
+            headers: { tokenAuthorization: store.getters.token }
+        })
         .then(response => {
             this.model = response.data;
             bootbox.alert("Record successfully saved.");

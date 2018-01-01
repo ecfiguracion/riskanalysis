@@ -1,9 +1,11 @@
 import './css/site.css';
 import 'bootstrap';
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import moment from 'moment';
 
+Vue.use(Vuex);
 Vue.use(VueRouter);
 
 Vue.filter('formatDate', function (value: any) {
@@ -47,6 +49,22 @@ const routes = [
 
 export const eventBus = new Vue();
 
+export const store = new Vuex.Store({
+    state: {
+      token: ''
+    },
+    mutations: {
+      settoken (state, payload) {
+        state.token = payload
+      }
+    },
+    getters: {
+        token(state) {
+            return state.token;
+        }
+    }
+  })
+  
 new Vue({
     el: '#app-root',
     router: new VueRouter({ mode: 'history', routes: routes }),

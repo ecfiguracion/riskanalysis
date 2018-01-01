@@ -12,42 +12,67 @@ namespace TYRISKANALYSIS.Controllers.API
     public class CategoryController : Controller
     {
         private ICategoryRepository repository;
+        private IUserAccountRepository authenticate;
 
         public CategoryController(IConfiguration appconfig)
         {
             repository = new CategoryRepository(appconfig);
+            authenticate = new UserAccountRepository(appconfig);
         }
 
         // GET api/barangays
         [HttpGet]
         public IActionResult GetCategory(PagedParams param)
         {
-            return Ok(repository.GetAll(param));
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
+            {
+                return Ok(repository.GetAll(param));
+            } 
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // GET api/barangays/1
         [HttpGet("{id}")]
         public IActionResult GetCategory(int id)
         {
-            var category = repository.GetById(id);
-
-            if (category == null)
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
             {
-                return NotFound();
-            }
+                var category = repository.GetById(id);
 
-            return Ok(category);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(category);
+            } else
+            {
+                return BadRequest();
+            }
         }
 
         // POST api/barangays
         [HttpPost]
         public IActionResult SaveCategory([FromBody] Category category)
         {
-            if (category.Id == 0)
-                repository.Add(category);
-            else
-                repository.Update(category);
-            return Ok(category);
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
+            {
+                if (category.Id == 0)
+                    repository.Add(category);
+                else
+                    repository.Update(category);
+                return Ok(category);
+            }
+             else
+            {
+                return BadRequest();
+            }
         }
     }
 }

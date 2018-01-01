@@ -9,6 +9,7 @@ namespace TYRISKANALYSIS.DataLayer.Interfaces
     public interface IUserAccountRepository
     {
         UserAccount GetById(int id);
+        bool GetByToken(string token);
         PagedResult<UserAccount> GetAll(PagedParams pagedParams);
         int GetTotalCount(string whereClause, string searchString);
         UserAccount Add(UserAccount barangay);

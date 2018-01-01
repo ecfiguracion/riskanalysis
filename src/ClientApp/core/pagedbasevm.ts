@@ -1,4 +1,5 @@
 ﻿import axios from "axios";
+import { store } from "../boot";
 
 interface PagedParams {
     searchString: string;
@@ -34,7 +35,8 @@ export class PagedBaseVM {
         //paramValues.push(this.ExtParams);
 
         axios.get(this.APIUrl, {
-            params: this.PagedParams
+            params: this.PagedParams,
+            headers: { tokenAuthorization : store.getters.token }
         })
         .then(response => {
             this.Model = response.data.items;
@@ -73,7 +75,9 @@ export class PagedBaseVM {
 
     onDelete(id: number) {
         return new Promise((resolve, reject) => {
-            axios.delete(this.APIUrl + "/" + id.toString())
+            axios.delete(this.APIUrl + "/" + id.toString(), {
+                    headers: { tokenAuthorization: store.getters.token }
+                })
                 .then(response => {
                     resolve(response);
                 })

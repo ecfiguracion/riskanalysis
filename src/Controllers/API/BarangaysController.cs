@@ -12,10 +12,12 @@ namespace TYRISKANALYSIS.Controllers.API
     public class BarangaysController : Controller
     {
         private IBarangayRepository repository;
+        private IUserAccountRepository authenticate;
 
         public BarangaysController(IConfiguration appconfig)
         {
             repository = new BarangayRepository(appconfig);
+            authenticate = new UserAccountRepository(appconfig);
         }
 
         // GET api/barangays
@@ -23,40 +25,66 @@ namespace TYRISKANALYSIS.Controllers.API
         public IActionResult GetBarangays(PagedParams param)
         {
             var request = this.Request.QueryString;
-            return Ok(repository.GetAll(param));
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
+                return Ok(repository.GetAll(param));
+            else
+                return BadRequest();
         }
 
         // GET api/barangays/1
         [HttpGet("{id}")]
         public IActionResult GetBarangay(int id)
         {
-            var barangay = repository.GetById(id);
-
-            if (barangay == null)
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
             {
-                return NotFound();
-            }
+                var barangay = repository.GetById(id);
 
-            return Ok(barangay);
+                if (barangay == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(barangay);
+            } else
+            {
+                return BadRequest();
+            }
         }
 
         // POST api/barangays
         [HttpPost]
         public IActionResult SaveBarangay([FromBody] Barangay barangay)
         {
-            if (barangay.Id == 0)
-                repository.Add(barangay);
-            else
-                repository.Update(barangay);
-            return Ok(barangay);
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
+            {
+                if (barangay.Id == 0)
+                    repository.Add(barangay);
+                else
+                    repository.Update(barangay);
+                return Ok(barangay);
+            } else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE api/barangays/1
         [HttpDelete("{id}")]
         public IActionResult DeleteBarangay(int id)
         {
-            repository.Remove(id);
-            return Ok();
+            var token = this.Request.Headers["tokenAuthorization"];
+            if (authenticate.GetByToken(token))
+            {
+                repository.Remove(id);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

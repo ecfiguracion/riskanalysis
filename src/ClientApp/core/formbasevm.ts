@@ -1,4 +1,5 @@
 ﻿import axios from "axios";
+import { store } from "../boot";
 
 export class FormBaseVM {
 
@@ -15,7 +16,9 @@ export class FormBaseVM {
     find(id: number) {
         return new Promise((resolve, reject) => {
             if (id > 0) {
-                axios.get(this.APIUrl + '/' + id.toString())
+                axios.get(this.APIUrl + '/' + id.toString(), {
+                        headers: { tokenAuthorization: store.getters.token }
+                    })
                     .then(response => {
                         this.Model = response.data;
                         resolve(response);
@@ -31,7 +34,9 @@ export class FormBaseVM {
 
     save() {
         return new Promise((resolve, reject) => {
-            axios.post(this.APIUrl, this.Model)
+            axios.post(this.APIUrl, this.Model, {
+                    headers: { tokenAuthorization: store.getters.token }
+                })
                 .then(response => {
                     resolve(response);
                 })

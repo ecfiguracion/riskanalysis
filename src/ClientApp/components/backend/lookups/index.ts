@@ -4,6 +4,7 @@ import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import { PagedBaseVM } from "../../../core/pagedbasevm";
 import bootbox from 'bootbox';
+import { store } from "../../../boot";
 
 interface Category {
     id: number;
@@ -25,7 +26,9 @@ export default class IndexComponent extends Vue {
     // Life Cycle Hook
     mounted() {
         //this.vm.onSearch();
-        axios.get("api/lookups/datalookups")
+        axios.get("api/lookups/datalookups", {
+            headers: { tokenAuthorization: store.getters.token }
+        })
         .then(response => {
             this.categories = response.data;
             if (this.categories) {

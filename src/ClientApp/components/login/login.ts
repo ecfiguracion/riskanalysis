@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
+import { store } from "../../boot";
 import { Component } from 'vue-property-decorator';
 import axios from "axios";
 import bootbox from 'bootbox';
@@ -12,8 +14,9 @@ export default class LoginComponent extends Vue {
     onLogin() {
         axios.post("api/useraccounts/authenticate", { username: this.username, password: this.password })
             .then(response => {
-                var token = response.data;
+                var token = response.data;                
                 if (token) {
+                    store.commit('settoken',token);
                     this.$router.push('/assessments');
                 } else {
                     bootbox.alert("Invalid username and password.");
