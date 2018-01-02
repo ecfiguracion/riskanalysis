@@ -103,7 +103,7 @@
                     <div class="col-md-offset-2 col-md-2 text-center">
                         <span class="fa fa-info-circle fa-3x"></span>
                         <h4>Damage Summary</h4>
-                        <h5>Get a quick summary of the effect of the typhoon</h5>
+                        <h5>Get a quick summary of the effects of the typhoon</h5>
                     </div>                    
                     <div class="col-md-2 text-center">
                         <span class="fa fa-map fa-3x"></span>
@@ -113,12 +113,12 @@
                     <div class="col-md-2 text-center">
                         <span class="fa fa-bar-chart fa-3x"></span>
                         <h4>Graphs</h4>
-                        <h5>View visual insights of damages of disaster</h5>
+                        <h5>View insights of disaster damages through graphs</h5>
                     </div>
                     <div class="col-md-2 text-center">
                         <span class="fa fa-line-chart fa-3x"></span>
                         <h4>Risk Trends</h4>
-                        <h5>Find association patterns of damages</h5>
+                        <h5>Find association patterns of frequently affected barangays</h5>
                     </div>                       
                 </div>
             </div>  
@@ -246,7 +246,7 @@
                             <h4>Affected Populations</h4>
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <canvas id="mapPopulations" ref="mapPopulations" height="100px"></canvas>
+                                    <canvas id="mapPopulations" ref="mapPopulations" height="150"></canvas>
                                 </div>
                             </div>                        
                         </div>
@@ -254,7 +254,7 @@
                             <h4>Damage on Lifelines</h4>
                             <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <canvas id="mapLifelines" ref="mapLifelines" height="100px"></canvas>
+                                        <canvas id="mapLifelines" ref="mapLifelines" height="150"></canvas>
                                     </div>
                                 </div>                          
                         </div>                    
@@ -264,7 +264,7 @@
                                 <h4>Damage on Properties</h4>
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <canvas id="mapProperties" ref="mapProperties" height="100px"></canvas>
+                                        <canvas id="mapProperties" ref="mapProperties" height="150"></canvas>
                                     </div>
                                 </div>                        
                             </div>
@@ -272,7 +272,7 @@
                                 <h4>Damage on Agriculture</h4>
                                 <div class="panel panel-default">
                                         <div class="panel-body">
-                                            <canvas id="mapAgriculture" ref="mapAgriculture" height="100px"></canvas>
+                                            <canvas id="mapAgriculture" ref="mapAgriculture" height="150"></canvas>
                                         </div>
                                     </div>                          
                             </div>                    
@@ -596,7 +596,7 @@
                             </div>
                             <div class="col-xs-2">
                                 <div class="form-group">
-                                    <label for="support">Support %</label>
+                                    <label for="support">Support % <i class="fa fa-info-circle fa-lg" rel="tooltip" title="Percentage chance the barangay(s) are affected from previous typhoon(s)"></i></label>
                                     <input type="number" class="form-control" id="support" v-model="supportPercentage">
                                 </div>
                             </div>
@@ -651,9 +651,9 @@
                                 <thead>
                                     <tr>
                                         <th>Rules</th>
-                                        <th class="text-center">Support</th>
-                                        <th class="text-center">Confidence</th>
-                                        <th class="text-center">Lift</th>
+                                        <th class="text-center">Support <i class="fa fa-info-circle fa-lg" rel="tooltip" title="Proportion of the transaction on which the barangay (X) appears"></i></th>
+                                        <th class="text-center">Confidence <i class="fa fa-info-circle fa-lg" rel="tooltip" title="The likelihood of barangay (X) affected when barangay (Y) is affected"></i></th>
+                                        <th class="text-center">Lift <i class="fa fa-info-circle fa-lg" rel="tooltip" title="The likelihood of barangay (Y) affected when barangay (X) is affected taking into account the popularity of barangay(Y)"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -678,11 +678,11 @@
                     <h6>A capstone project for Masters in Information Technology</h6>
                     <h6>University of Cordilleras</h6>
                     <div>
-                        <a href="">Home |</a> 
-                        <a href="">Map |</a> 
-                        <a href="">Charts |</a> 
-                        <a href="">Data |</a> 
-                        <a href="">Trends </a> 
+                        <a href="#homesection">Home |</a> 
+                        <a href="#mapsection">Map |</a> 
+                        <a href="#chartsection">Charts |</a> 
+                        <a href="#datasection">Data |</a> 
+                        <a href="#trendssection">Trends </a> 
                     </div>
                 </div>
             </div>        
@@ -691,4 +691,6 @@
 
 <style src="./home.css"></style>
 <script src="./home.ts"></script>
+
+
 <!-- <script src="./easing.js"></script> -->
